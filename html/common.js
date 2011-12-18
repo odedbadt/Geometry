@@ -44,6 +44,9 @@ function asin(a) {
 function atan(a) {
   return Math.atan(a);
 }
+function atan2(a, b) {
+  return Math.atan2(a, b);
+}
 function tan(a) {
   return Math.tan(a);
 }
@@ -77,9 +80,16 @@ function project(v, a) {
 function projectToPlane(v, a) {
 	return minus(v, project(v, a))
 }
+function J(p) {	
+	return [p[1], -p[0]];
+}
 
-
-
+function convexSum(v1, v2, a) {
+	return v1.map(function(x,i) {return x*(1-a) + v2[i]* a});
+}
+function middle(v1, v2) {
+	return convexSum(v1 ,v2, 0.5);
+}
 function range(n) {
   return {
       map:function(f) {

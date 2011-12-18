@@ -36,3 +36,12 @@ function clear(d) {
     d.removeChild(d.firstChild);
   }
 }
+function toscreen(p) {
+	return [300 + p[0]*200, 300 - p[1]*200];
+}
+function toscreenLength(p) {
+	o = toscreen([0, 0])
+	p1 = toscreen([p, 0])
+
+	return Math.abs(p1[0] - o[0]);
+}

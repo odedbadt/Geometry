@@ -112,7 +112,6 @@ function ellipse2d(p1,p2,p3,p4) {
 }
 
 function ignite() {
-	
 	var vs = [normalize([Math.random()-0.5, Math.random()-0.5, Math.random()+0.5]),
 			  normalize([Math.random()-0.5, Math.random()-0.5, Math.random()+0.5]),
 			  normalize([Math.random()-0.5, Math.random()-0.5, Math.random()+0.5])];
