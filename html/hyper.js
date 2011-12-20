@@ -27,8 +27,12 @@ function line(d1, d2) {
   var v = J(minus(u2, u1));
 
   var delta = (norm2(u1) + 1 - 2*dot(m, u1)) / (2*dot(v, u1));
-  var c0 = plus(m, scale(v, delta));
-  return [atan2(c0[1], c0[0]), norm(c0)];
+  if (delta > 100) {
+    return [atan2(c0[1], c0[0]), Infinity];
+  } else {
+    var c0 = plus(m, scale(v, delta));
+    return [atan2(c0[1], c0[0]), norm(c0)];
+  }
 }
 function point(a) {
   return scale([Math.cos(a[0]), Math.sin(a[0])], a[1]);
@@ -42,7 +46,21 @@ function lineAtInfinity(line) {
   return [[a - acos(1/R), 1], [a + acos(1/R), 1]];
 }
 function intersect(l1,l2) {
- 
+  if (l1[1] > 100 && l2[1] > 100) {
+    return [0,0];
+  }
+  if (l2[1] > 100) {
+    return intersect(l2,l1);
+  }
+  if (l1[1] > 100) {
+    var angle = l1[0] + ((sin(l2[0] - l2[1])) > 0 ? 1 : -1)*PI/2;
+    var R = l2[1];
+    var r2 = R*R - 1;
+    var cs = R*cos(l2[0] - l2[1]);
+    var radius = Math.abs(R*sin(l2[0] - l2[1])) - sqrt(r2-cs*cs);
+    return [angle, radius]
+  }
+
   var u = point(l1);
   var v = point(l2);
   var rU2 = l1[1]*l1[1] - 1;
@@ -78,18 +96,21 @@ function perpendicular(dot, line) {
 }
 function drawLine(color, l) {
 		var c = lineCircleCenter(l);
-		var r = lineCircleRadius(l);
+
 		var sc = toscreen(c)
-		var sr = toscreenLength(r)
     var ps = lineAtInfinity(l);
     var a = toscreen(point(ps[0]))
     var b = toscreen(point(ps[1]))
     
 //		document.getElementById('main').appendChild(stylize(createCircle(sc[0],sc[1],sr), 'none', color, 0.5,  1));
     
-    
-    document.getElementById('main').appendChild(stylize(createArc(a, b, [sr, sr, 180 - s1Dist(ps[0][0], ps[1][0]) ,0 , 1]), 'none', color, 0.5,  1));
-    
+    var r = lineCircleRadius(l);
+    if (isFinite(r) && r < 100) {
+      var sr = toscreenLength(r)  
+      document.getElementById('main').appendChild(stylize(createArc(a, b, [sr, sr, 180 - s1Dist(ps[0][0], ps[1][0]) ,0 , 1]), 'none', color, 0.5,  1));
+    } else {
+      document.getElementById('main').appendChild(stylize(createPath([a, b]), 'none', color, 0.5,  1));               
+    }
 }
 function drawDot(color, dot) {
   color = color || 'black';
@@ -104,15 +125,44 @@ function ignite() {
     var center = toscreen([0,0])
     var radius = toscreenLength(1)
   document.getElementById('main').appendChild(stylize(createCircle(center[0],center[1],radius), 'none', 'black', 0.5,  1));
-  plot(bst[0],bst[1]);
-  plot(bst[2],bst[3]);
-  console.log(bst[4], bst[5]);
+  //plot([0, 1], [0.5,1],  [0.7,1]);
+  //plot([0, 1], [1.7419,1],  [3.4837,1]);
+
+  var ps =[
+         [0,    0.1866,    3.2349],
+         [0,    0.3110,    3.2971],
+         [0,    0.3733,    0.7465],
+         [0,    0.4355,    3.3593],
+         [0,    0.6843,    3.4837],
+         [0,    0.9331,    3.6082],
+         [0,    1.7419,    3.4837],
+         [0,    1.8663,    3.7326],
+         [0,    1.9285,    4.1058],
+         [0,    1.9907,    3.9814],
+         [0,    2.0529,    4.1058],
+         [0,    2.0529,    4.1681],
+         [0,    2.1773,    4.2303],
+         [0,    2.3018,    4.2925],
+         [0,    2.9239,    5.8477],
+         [0,    3.0483,    6.0966],
+         [0,    3.1727,    4.7279],
+         [0,    3.2971,    4.7902],
+         [0 ,   4.4169 ,   5.3500]];
+  //go(ps, 0)
 }
 
-function plot(t1, t2) {
-   var a = [0, 1];
-    var b = [PI/100*t1*2, 1];
-    var c = [PI/100*t2*2, 1];
+function go(ps, i) {
+  clear(document.getElementById('main'));
+  var center = toscreen([0,0])
+  var radius = toscreenLength(1)
+  document.getElementById('main').appendChild(stylize(createCircle(center[0],center[1],radius), 'none', 'black', 0.5,  1));
+  plot.apply(null, ps[i].map(function(x) {return [x, 1]}));
+  if (i < ps.length - 1) {
+    setTimeout(function() {go(ps, i+1)}, 1000)
+  }
+}
+
+function plot(a, b, c) {
    
 
 
@@ -123,6 +173,8 @@ function plot(t1, t2) {
     var pts = [a,b,c];
     var lines = [lbc, lca, lab];
     lines.forEach(drawLine.bind(null, ['blue']));
+
+
     var perpendiculars = pts.map(function(x,i) { return perpendicular(x, lines[i])});
     perpendiculars.forEach(drawLine.bind(null, ['red']));
     
@@ -138,10 +190,7 @@ function plot(t1, t2) {
     
     connectors.forEach(drawLine.bind(null, ['green']));
 }
-function calcPerimiter(t1, t2) {
-   var a = [0, 1];
-    var b = [PI/100*t1*2, 1];
-    var c = [PI/100*t2*2, 1];
+function calcPerimiter(a, b, c) {
     
 
     var center = toscreen([0,0])
@@ -178,8 +227,11 @@ function findBest() {
   var mx2 = null;
   
   while (true) {
-   
-    var perimiter = calcPerimiter(t1, t2);
+    var a = [0, 1];
+    var b = [PI/100*t1*2, 1];
+    var c = [PI/100*t2*2, 1];
+
+    var perimiter = calcPerimiter(a, b, c);
     
     
     if (perimiter && perimiter < min) {
