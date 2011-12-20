@@ -50,8 +50,17 @@ function atan2(a, b) {
 function tan(a) {
   return Math.tan(a);
 }
+function sqrt(a) {
+  return Math.sqrt(a);
+}
+function log(a) {
+  return Math.log(a);
+}
 function dist(v1, v2) {
   return norm(minus(v1,v2));
+}
+function dist2(v1, v2) {
+  return norm2(minus(v1,v2));
 }
 function dot(p1,p2) {
 	return mul(p1,p2).reduce(scalarplus);
@@ -75,8 +84,6 @@ function cameraproject(focal, p) {
 function project(v, a) {
 	return scale(a, dot(v,a)/dot(a,a));
 }
-
-
 function projectToPlane(v, a) {
 	return minus(v, project(v, a))
 }
