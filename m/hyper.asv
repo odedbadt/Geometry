@@ -1,0 +1,114 @@
+function h = hyper()
+global c;
+c = common();
+
+h = struct();
+
+
+h.intersection = @intersection;
+h.dist = @dist;
+h.perpendicular = @perpendicular;
+h.line = @line;
+h.point = @point; 
+h.toPolar = @toPolar;
+h.lineAtInfinity = @lineAtInfinity;
+
+end
+
+function res = intersection(l1,l2)
+  global c;
+  res = nan(size(l1));
+  
+  isLine1 = l1(:,2) > 100;
+  isLine2 = l2(:,2) > 100;
+  
+  res(isLine1 & isLine2, :) = 0;
+  
+  
+  a1 = l1(:,1) + sign(sin(l2(:,1) - l1(:,1))) * pi / 2;
+  a2 = l2(:,1) + sign(sin(l1(:,1) - l2(:,1))) * pi / 2;
+  R1 = l1(:,2);
+  R2 = l2(:,2);
+  r1_2 = R1.*R1 - 1;
+  r2_2 = R2.*R2 - 1;
+  dext1 = r2_2 - R2 .* cos(l2(:,1)-l1(:,1));
+  dext2 = r1_2 - R1 .* cos(l2(:,1)-l1(:,1));
+
+  b1 = abs(R2 .* sin(l2(:,1) - l1(:,1))) - sqrt(dext1);
+  b2 = abs(R1 .* sin(l1(:,1) - l2(:,1))) - sqrt(dext2);
+  
+  res_1 = [a1 b1];
+  res_2 = [a2 b2];
+  res(isLine1 & (dext1 > 0), :) = res_1(isLine1 & (dext1 > 0),:);
+  res(isLine2 & (dext2 > 0), :) = res_2(isLine2 & (dext2 > 0),:);
+   
+  u = point(l1);
+  v = point(l2);
+  rU2 = l1(:,2).*l1(:,2) - 1;
+  rV2 = l2(:,2).*l2(:,2) - 1;
+  d2 = c.dist2(u, v);
+  d = sqrt(d2);
+  
+  a = (rU2 - rV2 + d2)./ (2.*d);
+  dext = rU2 - a.*a;
+  b = sqrt(dext);  
+  p0 = c.convexSum(u, v, a./ d);
+  w = bsxfun(@times, c.normalize(c.J(v - u)), b);
+  polar1 = toPolar(p0 + w);
+  polar2 = toPolar(p0 - w);
+
+  res_0 = polar1 .* (polar1(:,[2 2]) <= 1) + polar2 .* (polar1(:,[2 2]) > 1 & polar2(:,[2 2]) <= 1);
+  res(~isLine1 & ~isLine2 & dext > 0, :) = res_0(~isLine1 & ~isLine2 & dext > 0, :);
+end
+
+function res = dist(p1, p2) 
+  global c;
+    u = point(p1);
+    v = point(p2);
+    d1 = c.dist(u, v);
+    d2 = c.dist(repmat([1,0], size(p1, 1), 1), point([p1(:,1)-p2(:,1), p1(:,2).*p2(:,2)]));
+    
+    res = log((d1 + d2) ./ (d2 - d1));
+end
+
+function res = perpendicular(dot,  line) 
+  global c;
+  if (c.dot(:,1) < 1)
+    res = nan(size(line));
+  else 
+    R = line(:,2);
+    a = line(:,1) - dot(:,1);
+    x = (1 - cos(a) .* R) ./ (sin(a) .* R);
+    res = [dot(:,1) + atan(x), sqrt(1 + x.*x)];
+  end
+end
+
+function res =line(d1, d2) 
+  global c;
+  u1 = point(d1);
+  u2 = point(d2);
+  m = (u1 + u2)./ 2;
+  v = c.J(u2 - u1);
+
+  delta = ((c.norm2(u1) + 1) - 2.*c.dot(m, u1)) ./ (2.*c.dot(v, u1));
+  
+  c0 = m + v .* [delta delta];
+  res = toPolar(c0);
+  
+  res_1 = toPolar(v);
+  res(delta > 10, :) = v(del;
+end
+
+
+function res = point(a) 
+  res = [cos(a(:,1)), sin(a(:,1))] .* a(:,[2 2]) ;
+end
+function res = toPolar(a) 
+  global c;
+  res = [atan2(a(:,2), a(:,1)), c.norm(a)];
+end
+function res = lineAtInfinity(line) 
+  a = line(:,1);
+  R = line(:,2);
+  res = [a - acos(1/R), a + acos(1/R)];
+end
