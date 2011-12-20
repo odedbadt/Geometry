@@ -28,7 +28,7 @@ function line(d1, d2) {
 
   var delta = (norm2(u1) + 1 - 2*dot(m, u1)) / (2*dot(v, u1));
   if (delta > 100) {
-    return [atan2(c0[1], c0[0]), Infinity];
+    return [atan2(v[1], v[0]), Infinity];
   } else {
     var c0 = plus(m, scale(v, delta));
     return [atan2(c0[1], c0[0]), norm(c0)];
@@ -53,11 +53,14 @@ function intersect(l1,l2) {
     return intersect(l2,l1);
   }
   if (l1[1] > 100) {
-    var angle = l1[0] + ((sin(l2[0] - l2[1])) > 0 ? 1 : -1)*PI/2;
+    var angle = l1[0] + ((sin(l2[0] - l1[0])) > 0 ? 1 : -1)*PI/2;
     var R = l2[1];
     var r2 = R*R - 1;
-    var cs = R*cos(l2[0] - l2[1]);
-    var radius = Math.abs(R*sin(l2[0] - l2[1])) - sqrt(r2-cs*cs);
+      var cs = R*cos(l2[0] - l1[0]);
+    if (cs*cs > r2) {
+      return null;
+    }
+    var radius = Math.abs(R*sin(l2[0] - l1[0])) - sqrt(r2-cs*cs);
     return [angle, radius]
   }
 
@@ -69,10 +72,13 @@ function intersect(l1,l2) {
   var d = sqrt(d2);
   
   var a = (rU2 - rV2 + d2) / (2*d);
+  if (rU2 < a*a) {
+    return null;
+  }
   var b = sqrt(rU2 - a*a);  
   var p0 = convexSum(u, v, a / d);
   var w = scale(normalize(J(minus(v,u))), b);
-  return [plus(p0, w), minus(p0, w)].map(toPolar).filter(function(x) { return x[1] <= 1});
+  return [plus(p0, w), minus(p0, w)].map(toPolar).filter(function(x) { return x[1] <= 1})[0];
 }
 
 function hdist(p1, p2) {
@@ -88,10 +94,14 @@ function perpendicular(dot, line) {
   if (dot[1] < 1){
     return null
   } else {
-    var R = lineCircleDistToCenter(line);
-    var a = lineCircleAlpha(line) - dot[0];
-    var x = (1 - cos(a)*R) / (sin(a)*R);
-    return [dot[0] + atan(x), Math.sqrt(1 + x*x)]
+    var R = line[1];
+    var a = line[0] - dot[0];
+    if (R > 10) {    
+      return [line[0] - PI/2 * (sin(a) > 0 ? 1 : -1), 1/Math.abs(sin(a))];
+    } else {
+      var x = (1 - cos(a)*R) / (sin(a)*R);
+      return [dot[0] + atan(x), Math.sqrt(1 + x*x)];
+    }
   }
 }
 function drawLine(color, l) {
@@ -119,7 +129,7 @@ function drawDot(color, dot) {
 }
 
 function ignite() {
-  var bst = findBest();
+  //var bst = findBest();
   //document.body.write('Hello');
   clear(document.getElementById('main'));
     var center = toscreen([0,0])
@@ -148,18 +158,17 @@ function ignite() {
          [0,    3.1727,    4.7279],
          [0,    3.2971,    4.7902],
          [0 ,   4.4169 ,   5.3500]];
-  //go(ps, 0)
+  go(ps, 0, 1, 2)
 }
 
-function go(ps, i) {
+function go(ps, a,b,c) {
   clear(document.getElementById('main'));
   var center = toscreen([0,0])
   var radius = toscreenLength(1)
   document.getElementById('main').appendChild(stylize(createCircle(center[0],center[1],radius), 'none', 'black', 0.5,  1));
-  plot.apply(null, ps[i].map(function(x) {return [x, 1]}));
-  if (i < ps.length - 1) {
-    setTimeout(function() {go(ps, i+1)}, 1000)
-  }
+  plot([a,1],[b,1],[c,1])
+  setTimeout(function() {go(ps, a+(Math.random()-0.5)/4, b+(Math.random()-0.5)/4, c+(Math.random()-0.5)/4)}, 1000)
+  
 }
 
 function plot(a, b, c) {
@@ -178,7 +187,7 @@ function plot(a, b, c) {
     var perpendiculars = pts.map(function(x,i) { return perpendicular(x, lines[i])});
     perpendiculars.forEach(drawLine.bind(null, ['red']));
     
-    var intersections = lines.map(function(l, i) {return intersect(l, perpendiculars[i])[0]});
+    var intersections = lines.map(function(l, i) {return intersect(l, perpendiculars[i])});
 
     if (!intersections[0] || !intersections[1] || !intersections[2]) {
       return null
@@ -186,9 +195,14 @@ function plot(a, b, c) {
 
     intersections.forEach(drawDot.bind(null, ['black']));
 
-    connectors = intersections.map(function(isec, i) { return line(isec, intersections[nxt(i)])})
+    var connectors = intersections.map(function(isec, i) { return line(isec, intersections[nxt(i)])})
     
     connectors.forEach(drawLine.bind(null, ['green']));
+
+    var distances = intersections.map(function(isec, i) { return hdist(isec, intersections[nxt(i)])})
+        
+    var perimiter = distances.reduce(scalarplus);
+    return perimiter;
 }
 function calcPerimiter(a, b, c) {
     
@@ -211,7 +225,6 @@ function calcPerimiter(a, b, c) {
 
     connectors = intersections.map(function(isec, i) { return line(isec, intersections[nxt(i)])})
     distances = intersections.map(function(isec, i) { return hdist(isec, intersections[nxt(i)])})
-    
     
     var perimiter = distances.reduce(scalarplus);
     return perimiter;
