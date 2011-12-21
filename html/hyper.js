@@ -112,29 +112,29 @@ function drawLine(color, l) {
     var a = toscreen(point(ps[0]))
     var b = toscreen(point(ps[1]))
     
-//		document.getElementById('main').appendChild(stylize(createCircle(sc[0],sc[1],sr), 'none', color, 0.5,  1));
+//		document.getElementById('plot').appendChild(stylize(createCircle(sc[0],sc[1],sr), 'none', color, 0.5,  1));
     
     var r = lineCircleRadius(l);
     if (isFinite(r) && r < 100) {
       var sr = toscreenLength(r)  
-      document.getElementById('main').appendChild(stylize(createArc(a, b, [sr, sr, 180 - s1Dist(ps[0][0], ps[1][0]) ,0 , 1]), 'none', color, 0.5,  1));
+      document.getElementById('plot').appendChild(stylize(createArc(a, b, [sr, sr, 180 - s1Dist(ps[0][0], ps[1][0]) ,0 , 1]), 'none', color, 0.5,  1));
     } else {
-      document.getElementById('main').appendChild(stylize(createPath([a, b]), 'none', color, 0.5,  1));               
+      document.getElementById('plot').appendChild(stylize(createPath([a, b]), 'none', color, 0.5,  1));               
     }
 }
 function drawDot(color, dot) {
   color = color || 'black';
   var a = toscreen(point(dot));
-  document.getElementById('main').appendChild(stylize(createCircle(a[0],a[1],4), 'none', color, 0.5,  1));
+  document.getElementById('plot').appendChild(stylize(createCircle(a[0],a[1],4), 'none', color, 0.5,  1));
 }
 
 function ignite() {
   //var bst = findBest();
   //document.body.write('Hello');
-  clear(document.getElementById('main'));
+  clear(document.getElementById('plot'));
     var center = toscreen([0,0])
     var radius = toscreenLength(1)
-  document.getElementById('main').appendChild(stylize(createCircle(center[0],center[1],radius), 'none', 'black', 0.5,  1));
+  document.getElementById('plot').appendChild(stylize(createCircle(center[0],center[1],radius), 'none', 'black', 0.5,  1));
   //plot([0, 1], [0.5,1],  [0.7,1]);
   //plot([0, 1], [1.7419,1],  [3.4837,1]);
 
@@ -162,15 +162,20 @@ function ignite() {
 }
 
 function go(ps, a,b,c) {
-  clear(document.getElementById('main'));
-  var center = toscreen([0,0])
-  var radius = toscreenLength(1)
-  document.getElementById('main').appendChild(stylize(createCircle(center[0],center[1],radius), 'none', 'black', 0.5,  1));
-  plot([a,1],[b,1],[c,1])
-  setTimeout(function() {go(ps, a+(Math.random()-0.5)/4, b+(Math.random()-0.5)/4, c+(Math.random()-0.5)/4)}, 1000)
+  refreshfrominputs();
+  //setTimeout(function() {go(ps, a+(Math.random()-0.5)/4, b+(Math.random()-0.5)/4, c+(Math.random()-0.5)/4)}, 1000)
   
 }
-
+function refreshfrominputs() {
+  clear(document.getElementById('plot'));
+  var center = toscreen([0,0])
+  var radius = toscreenLength(1)
+  document.getElementById('plot').appendChild(stylize(createCircle(center[0],center[1],radius), 'none', 'black', 0.5,  1));
+    var a = parseFloat(document.getElementById('a').value);
+    var b = parseFloat(document.getElementById('b').value);
+    var c = parseFloat(document.getElementById('c').value);
+    plot([a,1],[b,1],[c,1]);
+}
 function plot(a, b, c) {
    
 
@@ -202,6 +207,8 @@ function plot(a, b, c) {
     var distances = intersections.map(function(isec, i) { return hdist(isec, intersections[nxt(i)])})
         
     var perimiter = distances.reduce(scalarplus);
+    
+    document.getElementById('message').innerHTML = 'Perimiter: ' + perimiter;
     return perimiter;
 }
 function calcPerimiter(a, b, c) {
