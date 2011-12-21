@@ -37,6 +37,24 @@ function line(d1, d2) {
 function point(a) {
   return scale([Math.cos(a[0]), Math.sin(a[0])], a[1]);
 }
+function angle(l1,l2) {
+  if (l1[1] > 10 && l2[1] > 10) {
+    return s1Dist(l1[0], l2[0]);
+  }
+  if (l2[1] > 10) {
+    return angle(l2, l1);
+  }
+  if (l1[1] > 10) {
+    return asin(sin(PI/2 - l1[0] + l2[0]) * l2[1] / sqrt(l2[1]*l2[1]-1)) + PI/2;
+  }
+  var c1 = point(l1);
+  var c2 = point(l2);
+  var d2 = dist2(c1, c2);
+  var r1 = sqrt(l1[1]*l1[1] - 1);
+  var r2 = sqrt(l2[1]*l2[1] - 1);
+
+  return acos((r1*r1 + r2*r2 - d2) / (2*r1*r2));
+}
 function toPolar(a) {
   return [atan2(a[1], a[0]), norm(a)];
 }
@@ -91,18 +109,17 @@ function hdist(p1, p2) {
 }
 
 function perpendicular(dot, line) {
-  if (dot[1] < 1){
-    return null
-  } else {
-    var R = line[1];
-    var a = line[0] - dot[0];
-    if (R > 10) {    
-      return [line[0] - PI/2 * (sin(a) > 0 ? 1 : -1), 1/Math.abs(sin(a))];
-    } else {
-      var x = (1 - cos(a)*R) / (sin(a)*R);
-      return [dot[0] + atan(x), Math.sqrt(1 + x*x)];
-    }
+  var R = line[1];
+  var a = line[0] - dot[0];
+  if (R > 10) {    
+    return [line[0] - PI/2 * (sin(a) > 0 ? 1 : -1), dot[1]/Math.abs(sin(a))];
   }
+  if (dot[1] < 1) {
+    var p0 = perpendicular([dot[0], 1], [line[0], line[1]*dot[1]]);
+    return [p0[0], p0[1]/dot[1]];
+  }
+  var x = (1 - cos(a)*R) / (sin(a)*R);
+  return [dot[0] + atan(x), Math.sqrt(1 + x*x)];
 }
 function drawLine(color, l) {
 		var c = lineCircleCenter(l);
@@ -158,7 +175,7 @@ function ignite() {
          [0,    3.1727,    4.7279],
          [0,    3.2971,    4.7902],
          [0 ,   4.4169 ,   5.3500]];
-  go(ps, 0, 1, 2)
+  go(ps, 0,PI/2, PI)
 }
 
 function go(ps, a,b,c) {
@@ -174,7 +191,7 @@ function refreshfrominputs() {
     var a = parseFloat(document.getElementById('a').value);
     var b = parseFloat(document.getElementById('b').value);
     var c = parseFloat(document.getElementById('c').value);
-    plot([a,1],[b,1],[c,1]);
+    plot([a,0.6],[b,1],[c,1]);
 }
 function plot(a, b, c) {
    
@@ -208,7 +225,17 @@ function plot(a, b, c) {
         
     var perimiter = distances.reduce(scalarplus);
     
-    document.getElementById('message').innerHTML = 'Perimiter: ' + perimiter;
+    var angles = connectors.map(function(l, i) {return angle(l, connectors[nxt(i)]) }).map(function(x) { return Math.min(x, PI-x)});
+    var dists = angles.map(function(a,i,as) {
+        var a = a;
+        var b = as[nxt(i)];
+        var g = as[nxt(nxt(i))];
+
+        return acosh((cos(b)*cos(g) + cos(a)) / (sin(b)*sin(g)));
+    });
+
+
+    document.getElementById('message').innerHTML = 'Perimiter: ' + tos(perimiter) + '<br>Anlges:' + angles.map(tos).join(',') + '<br>Dists:' + dists.map(tos).join(',');
     return perimiter;
 }
 function calcPerimiter(a, b, c) {

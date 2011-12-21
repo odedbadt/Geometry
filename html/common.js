@@ -56,6 +56,12 @@ function sqrt(a) {
 function log(a) {
   return Math.log(a);
 }
+function asinh(x) {
+	return log(x + sqrt(x*x+1))
+}
+function acosh(x) {
+	return log(x + sqrt(x*x-1))
+}
 function dist(v1, v2) {
   return norm(minus(v1,v2));
 }
