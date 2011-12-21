@@ -115,8 +115,16 @@ function perpendicular(dot, line) {
     return [line[0] - PI/2 * (sin(a) > 0 ? 1 : -1), dot[1]/Math.abs(sin(a))];
   }
   if (dot[1] < 1) {
-    var p0 = perpendicular([dot[0], 1], [line[0], line[1]*dot[1]]);
-    return [p0[0], p0[1]/dot[1]];
+    var u = point(line);
+    var v = point(dot);
+    
+    var bv = (norm2(v) + 1) / 2;
+    var bu = (norm2(u) - line[1]*line[1] + 2) / 2;
+    
+    var x0 = (bu * v[1] - bv * u[1]) / (u[0] * v[1] - v[0] * u[1]);
+    var x1 = (bu * v[0] - bv * u[0]) / (u[1] * v[0] - v[1] * u[0]);
+    
+    return toPolar([x0, x1]);
   }
   var x = (1 - cos(a)*R) / (sin(a)*R);
   return [dot[0] + atan(x), Math.sqrt(1 + x*x)];
@@ -191,12 +199,15 @@ function refreshfrominputs() {
     var a = parseFloat(document.getElementById('a').value);
     var b = parseFloat(document.getElementById('b').value);
     var c = parseFloat(document.getElementById('c').value);
-    plot([a,0.6],[b,1],[c,1]);
+    
+    bst = findBest();
+    //console.log(findBest());
+    
+    plot([0, 1], [PI/2, bst[0]], [PI,1]);
+    
 }
 function plot(a, b, c) {
    
-
-
     var lbc = line(b, c);
     var lab = line(a, b);
     var lca = line(c, a);
@@ -224,7 +235,7 @@ function plot(a, b, c) {
     var distances = intersections.map(function(isec, i) { return hdist(isec, intersections[nxt(i)])})
         
     var perimiter = distances.reduce(scalarplus);
-    
+        
     var angles = connectors.map(function(l, i) {return angle(l, connectors[nxt(i)]) }).map(function(x) { return Math.min(x, PI-x)});
     var dists = angles.map(function(a,i,as) {
         var a = a;
@@ -234,16 +245,10 @@ function plot(a, b, c) {
         return acosh((cos(b)*cos(g) + cos(a)) / (sin(b)*sin(g)));
     });
 
-
     document.getElementById('message').innerHTML = 'Perimiter: ' + tos(perimiter) + '<br>Anlges:' + angles.map(tos).join(',') + '<br>Dists:' + dists.map(tos).join(',');
     return perimiter;
 }
 function calcPerimiter(a, b, c) {
-    
-
-    var center = toscreen([0,0])
-    var radius = toscreenLength(1)
-
     var lbc = line(b, c);
     var lab = line(a, b);
     var lca = line(c, a);
@@ -251,17 +256,18 @@ function calcPerimiter(a, b, c) {
     var pts = [a,b,c];
     var lines = [lbc, lca, lab];
     var perpendiculars = pts.map(function(x,i) { return perpendicular(x, lines[i])});
-    
-    var intersections = lines.map(function(l, i) {return intersect(l, perpendiculars[i])[0]});
+   
+    var intersections = lines.map(function(l, i) {return intersect(l, perpendiculars[i])});
+
     if (!intersections[0] || !intersections[1] || !intersections[2]) {
       return null
     }
-
-    connectors = intersections.map(function(isec, i) { return line(isec, intersections[nxt(i)])})
-    distances = intersections.map(function(isec, i) { return hdist(isec, intersections[nxt(i)])})
-    
+    var connectors = intersections.map(function(isec, i) { return line(isec, intersections[nxt(i)])})
+    var distances = intersections.map(function(isec, i) { return hdist(isec, intersections[nxt(i)])})
+        
     var perimiter = distances.reduce(scalarplus);
-    return perimiter;
+    var ha = angle(lbc, lab);
+   return [perimiter, ha];
 }
 function findBest() {
   var t1 = 1;
@@ -273,34 +279,31 @@ function findBest() {
   var mx1 = null;
   var mx2 = null;
   
-  while (true) {
+  for (var i = 0.01; i < 1; i += 0.01) {
     var a = [0, 1];
-    var b = [PI/100*t1*2, 1];
-    var c = [PI/100*t2*2, 1];
+    var b = [PI/2, i];
+    var c = [PI, 1];
 
-    var perimiter = calcPerimiter(a, b, c);
-    
-    
-    if (perimiter && perimiter < min) {
-      min = perimiter;
-      mn1 = t1;
-      mn2 = t2;
+    var pNa = calcPerimiter(a, b, c);
+    if (!pNa) {
+      console.log(NaN, NaN, NaN);
+      continue;
     }
-    if (perimiter && perimiter > max) {
-      max = perimiter;
-      mx1 = t1;
-      mx2 = t2;
+    var area = pNa[1];
+    var perimiter = pNa[0];
+    var score = perimiter / area;
+    console.log(perimiter, area, score);
+    
+    if (score && score < min) {
+      min = score;
+      mni = i;;
+    }
+    if (score && score > max) {
+      max = score;
+      mxi = i;
     }  
-    
-    t2 = t2 + 1;
-    if (t2 > 100) {
-      t1 = t1 + 1;
-      t2 = t1 + 1;
-    }
-    if (t2 >= 100) {
-      return [mn1, mn2, mx1,mx2, min, max];
-    }
   }
+  return [mni, mxi, min, max];
 }
 
 function score(a,b,c) {
