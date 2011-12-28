@@ -211,7 +211,7 @@ def main():
   #validateEqualNumerically(diff(distCCBB[-1], a), diffDist2, a, "(BB-CC)'")
   
   
-  #validateEqualNumerically(diff(distAABB[-1] + distAACC[-1] + distCCBB[-1], a), totalDistDiff, a, "(AA->BB->CC)'")
+  validateEqualNumerically(diff(distAABB[-1] + distAACC[-1] + distCCBB[-1], a), totalDistDiff, a, "(AA->BB->CC)'")
   
   #print(totalDistDiff[-2]);
   #print(totalDistDiff[-1]);
