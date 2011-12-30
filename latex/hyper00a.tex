@@ -2,18 +2,22 @@
 \title{}
 \author{}
 \usepackage{graphicx} 
+\parskip 7.2pt
 
 \begin{document}
 \maketitle
 \begin{abstract}
 
-We consider the single parametered family of triangles in the hyperbolic two dimensional space that have two angles of size zero and one non zero angle.
-More specifically we are interested in the Fangano triangles formed by connecting the bases of the (hyperbolic) heights of the triangles as shown in Figure 1, modeled as will be the whole document 
-in the upper half plane model:
+We consider the single parametered family of triangles in the hyperbolic two 
+dimensional space that have two angles of size zero and one non zero angle.
+More specifically we are interested in the Fangano triangles formed by connecting 
+the bases of the (hyperbolic) heights of the triangles as shown in Figure 1, 
+modeled as will be the whole document in the upper half plane model:
 
 \begin{center}
- \includegraphics[width=12cm]{./hyper00a.eps}
+ \includegraphics[width=6cm]{./sketch00a.pdf}
  % hyper00a.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=41 259 525 696
+
  Figure 1
 \end{center}
 
@@ -21,127 +25,155 @@ Our goal is to understand what $\alpha$ maximizes the perimiter of such triangle
 We will see that the perimiter of such inner triangles as a function of the free
 angle will of the outer triangle has only one critial point within
 the interval $\left[0,\frac{pi}{2}\right)$ located at zero and is thus monotoneus
-and can easily shown to be decreasing. We will conclude the maximal perimiter of
-the Fangano triangle is given in the equilateral triangle with angles 0-0-0.
+with respect to $\alpha$ and can easily shown to be decreasing. We will conclude
+the maximal perimiter of the Fangano triangle is given in the equilateral
+triangle with angles 0-0-0.
+
+In the appendices we will prove that by connecting the bases of the heights of
+such triangles we introduce an internal billiard and that that its orbit is indeed
+the Fnagano orbit for those triangles.
 
 \end{abstract}
-\section{}
-
-Let us first find $A'$, $B'$ and $C'$, the bases of the heights.
-
-Since $B$ is located at $\infty$, it is trivial to see that
+\section{Shortest Fangano Triangle}
+Let us first find $A'$, $B'$ and $C'$, the bases of the heights. First, it is
+trivial to see that:
 
 \begin{center}
 $B' = 1 + i$ 
 \end{center}
 
-Since it is the only perpendicular to the euclidean circle that represents the
-edge $AC$ that originates in $\infty$ of the $H^2$ model.
+Since the only perpendicular to the euclidean circle that represents the
+edge $AC$ that originates in $\infty$ intersects the circle at its highest
+point.
 
 Now, since the edges leaving $A$ and $C$ towards $B$ (located at $\infty$) are
 perpendicular to the real axis, every hyperbolic line perpendicular to them
-is positioned along Euclidean circle centered at the edge's meeting with the
+is positioned along an Euclidean circle centered at the edge's meeting with the
 real axis.
 
 Knowing the above, it is easy to calculate the point the perpendiculars cross
-the opposie edges, the center we have shown is the edge's meeting point with the
-real axis and the radius is the Euclidean distance between the veterx and the 
-opposite edge:
+the opposie edges. Indeed, we have shown the center is located at the edge's
+meeting point with the real axis and since it passes through a known vertex, 
+the radius is easilt calculated as the distance bewteem the center and the
+vertex.
 
 \begin{center}
-$A' = i \sqrt{2 + 2 cos\left(\alpha\right)}$
+$A' = i \sqrt{2 + 2 \cos{\alpha}}$
 
-
-$C' = \left(1 + i\right) \left(1 + cos\left(\alpha\right)\right)$
+$C' = \left(1 + i\right) \left(1 + \cos{\alpha}\right)$
 \end{center}
-
 
 Now let us calculate the hyperbolic distances between $a$, $b$ and $c$ using the formula:
 
 \begin{center}
-
 $d\left(x,y\right) = acosh(\frac{\|x-y\|^{2}}{\Im\left(x\right)\Im\left(y\right)})$
-
-
 \end{center}
 
 \noindent$d\left(A', B'\right) =$
 
-$acosh\left(1 + \frac{\left(\Im\left(A' - B'\right)\right)^{2} + \left(\Re\left(A' - B'\right)\right)^{2}}{2 \sqrt{2 + 2 cos\left(\alpha\right)}}\right) =$
-$acosh\left(1 + \frac{1 + \left(1 - \sqrt{2 + 2 cos\left(\alpha\right)}\right)^{2}}{2 \sqrt{2 + 2 cos\left(\alpha\right)}}\right) =$
+$acosh\left(1 + \frac{\left(\Im\left(A' - B'\right)\right)^{2} + \left(\Re\left(A' - B'\right)\right)^{2}}{2 \sqrt{2 + 2 \cos{\alpha}}}\right) =$
+$acosh\left(1 + \frac{1 + \left(1 - \sqrt{2 + 2 \cos{\alpha}}\right)^{2}}{2 \sqrt{2 + 2 \cos{\alpha}}}\right) =$
 
-$acosh\left(1 + \frac{4 + 2 cos\left(\alpha\right) - 2 \sqrt{2 + 2 cos\left(\alpha\right)}}{2 \sqrt{2 + 2 cos\left(\alpha\right)}}\right) =$
-$acosh\left(\frac{4 + 2 cos\left(\alpha\right)}{2 \sqrt{2 + 2 cos\left(\alpha\right)}}\right) =$
+$acosh\left(1 + \frac{4 + 2 \cos{\alpha} - 2 \sqrt{2 + 2 \cos{\alpha}}}{2 \sqrt{2 + 2 \cos{\alpha}}}\right) =$
+$acosh\left(\frac{4 + 2 \cos{\alpha}}{2 \sqrt{2 + 2 \cos{\alpha}}}\right) =$
 
-$acosh\left(\frac{2 + cos\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right)}}\right) $
-
-
+$acosh\left(\frac{2 + \cos{\alpha}}{\sqrt{2 + 2 \cos{\alpha}}}\right) $
 
 \noindent$d\left(B', C'\right) = $
 
-$acosh\left(1 + \frac{\left(\Im\left(B' - B'\right)\right)^{2} + \left(\Re\left(B' - C'\right)\right)^{2}}{2 + 2 cos\left(\alpha\right)}\right) =$
-$acosh\left(1 + 2 \frac{cos^{2}\left(\alpha\right)}{2 + 2 cos\left(\alpha\right)}\right) =$
+$acosh\left(1 + \frac{\left(\Im\left(B' - B'\right)\right)^{2} + \left(\Re\left(B' - C'\right)\right)^{2}}{2 + 2 \cos{\alpha}}\right) =$
+$acosh\left(1 + 2 \frac{cos^{2}{\alpha}}{2 + 2 \cos{\alpha}}\right) =$
 
-$acosh\left(1 + \frac{cos^{2}\left(\alpha\right)}{1 + cos\left(\alpha\right)}\right) =$
-$acosh\left(\frac{1 + cos\left(\alpha\right) + cos^{2}\left(\alpha\right)}{1 + cos\left(\alpha\right)}\right) $
-
+$acosh\left(1 + \frac{cos^{2}{\alpha}}{1 + \cos{\alpha}}\right) =$
+$acosh\left(\frac{1 + \cos{\alpha} + cos^{2}{\alpha}}{1 + \cos{\alpha}}\right) $
 
 \noindent$ d\left(C', A'\right)=$
 
-$acosh\left(1 + \frac{\left(\Im\left(C' - A'\right)\right)^{2} + \left(\Re\left(C' - A'\right)\right)^{2}}{\left(2 + 2 cos\left(\alpha\right)\right)^{\frac{3}{2}}}\right) =$
-$acosh\left(1 + \frac{\left(1 + cos\left(\alpha\right)\right)^{2} + \left(1 + cos\left(\alpha\right) - \sqrt{2 + 2 cos\left(\alpha\right)}\right)^{2}}{\left(2 + 2 cos\left(\alpha\right)\right)^{\frac{3}{2}}}\right) =$
+$acosh\left(1 + \frac{\left(\Im\left(C' - A'\right)\right)^{2} + \left(\Re\left(C' - A'\right)\right)^{2}}{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
 
-$acosh\left(1 + \frac{3 + 4 cos\left(\alpha\right) + \left(1 + cos\left(\alpha\right)\right)^{2} + cos^{2}\left(\alpha\right) - \left(2 + 2 cos\left(\alpha\right)\right)^{\frac{3}{2}}}{\left(2 + 2 cos\left(\alpha\right)\right)^{\frac{3}{2}}}\right) =$
-$acosh\left(1 + \frac{4 + 6 cos\left(\alpha\right) + 2 cos^{2}\left(\alpha\right) - \left(2 + 2 cos\left(\alpha\right)\right)^{1.5}}{\left(2 + 2 cos\left(\alpha\right)\right)^{\frac{3}{2}}}\right) =$
+$acosh\left(1 + \frac{\left(1 + \cos{\alpha}\right)^{2} + \left(1 + \cos{\alpha} - \sqrt{2 + 2 \cos{\alpha}}\right)^{2}}{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
 
-$acosh\left(1 + \frac{4 + 6 cos\left(\alpha\right) + 2 cos^{2}\left(\alpha\right) - \left(2 + 2 cos\left(\alpha\right)\right)^{1.5}}{\left(2 + 2 cos\left(\alpha\right)\right)^{\frac{3}{2}}}\right) =$
-$acosh\left(1 + \frac{4 + 6 cos\left(\alpha\right) + 2 cos^{2}\left(\alpha\right) - \left(2 + 2 cos\left(\alpha\right)\right)^{1.5}}{\left(2 + 2 cos\left(\alpha\right)\right)^{1.5}}\right) =$
+$acosh\left(1 + \frac{2\left(1 + \cos{\alpha}\right)^{2} + 2 + 2 \cos{\alpha} - 2\left(1 + \cos{\alpha}\right)\sqrt{2 + 2 \cos{\alpha}}}{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
 
-$acosh\left(\frac{4 + 6 cos\left(\alpha\right) + 2 cos^{2}\left(\alpha\right)}{\left(2 + 2 cos\left(\alpha\right)\right)^{1.5}}\right) =$
-$acosh\left(\frac{\sqrt{2} \left(2 + 3 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)\right)}{\left(1 + cos\left(\alpha\right)\right)^{1.5}}\right) =$
+$acosh\left(1 + \frac{2 + 2cos^{2}{\alpha} + 2\cos{\alpha} + 2 + 2 \cos{\alpha} - 2\left(1 + \cos{\alpha}\right)\sqrt{2 + 2 \cos{\alpha}}}{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
 
-$acosh\left(\frac{\sqrt{2} \left(2 + 3 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)\right)}{2 \left(1 + cos\left(\alpha\right)\right)^{1.5}}\right) =$
-$acosh\left(\frac{2 + cos\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right)}}\right)$
+$acosh\left(1 + \frac{4 + 6 \cos{\alpha} + 2 cos^{2}{\alpha} - \left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
+
+$acosh\left(\frac{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}} + 4 + 6 \cos{\alpha} + 2 cos^{2}{\alpha} - \left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
+
+$acosh\left(\frac{4 + 6 \cos{\alpha} + 2 cos^{2}{\alpha}}{\left(2 + 2 \cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
+
+$acosh\left(\frac{2 \left(2 + 3 \cos{\alpha} + cos^{2}{\alpha}\right)}{\left(2 + 2\cos{\alpha}\right)^{\frac{3}{2}}}\right) =$
+
+$acosh\left(\frac{2 \left(1 + \cos{\alpha}\right)\left(2 + \cos{\alpha}\right)}{\left(2 + 2\cos{\alpha}\right) \sqrt{\left(2 + 2\cos{\alpha}\right) } } \right) =$
+
+$acosh\left(\frac{2 + \cos{\alpha}}{\sqrt{2 + 2 \cos{\alpha}}}\right)$
 
 \noindent
 We notice that
 \begin {center}
-$ d\left(a, c\right)=d\left(a, b\right) $
+$ d\left(C', A'\right)=d\left(A', B'\right) $
 \end {center}
-
-
 
 \noindent
 We differentiate each distance expression (with respect to $\alpha$):
 
-
-
-
 \noindent$\frac{d}{d\alpha}d\left(A', B'\right)=\frac{d}{d\alpha}d\left(C', A'\right)=$
 
-$\frac{- \frac{sin\left(\alpha\right)}{\left(2 + 2 cos\left(\alpha\right)\right)^{0.5}} + 2 \frac{\left(1.0 + 0.5 cos\left(\alpha\right)\right) sin\left(\alpha\right)}{\left(2 + 2 cos\left(\alpha\right)\right)^{1.5}}}{\left(-1 + \frac{\left(2 + cos\left(\alpha\right)\right)^{2}}{2 + 2 cos\left(\alpha\right)}\right)^{0.5}}=$
-$\sqrt{\frac{2 + 2 cos\left(\alpha\right)}{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)}} \left(- \frac{sin\left(\alpha\right)}{\left(2 + 2 cos\left(\alpha\right)\right)^{0.5}} + 2 \frac{\left(1.0 + 0.5 cos\left(\alpha\right)\right) sin\left(\alpha\right)}{\left(2 + 2 cos\left(\alpha\right)\right)^{1.5}}\right)=$
+$ \left(\left(-1 + \left( \frac{2 + \cos{\alpha}}
+                        {\sqrt{2 + 2 \cos{\alpha}}}\right ) ^{2}\right)\right)^{-\frac{1}{2}}    \frac{d}{d\alpha}\left (\frac{2 + \cos{\alpha}}{\sqrt{2 + 2 \cos{\alpha}}}\right) =$
 
-$- \frac{\sqrt{\frac{2 + 2 cos\left(\alpha\right)}{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)}} \left(1 - \frac{2 + cos\left(\alpha\right)}{2 + 2 cos\left(\alpha\right)}\right) sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right)}}=$
-$- \frac{\sqrt{\frac{2 + 2 cos\left(\alpha\right)}{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)}} cos\left(\alpha\right) sin\left(\alpha\right)}{\left(2 + 2 cos\left(\alpha\right)\right)^{\frac{3}{2}}}=$
+$ \left(\left(-1 + \frac{\left(2 + \cos{\alpha}\right)^{2}}{2 + 2 \cos{\alpha}}\right)\right)^{-\frac{1}{2}}  \frac{1}{\sqrt{2}}\frac{d}{d\alpha}\left (\sqrt{1 + \cos{\alpha}} + \frac{1}{\sqrt{1 + \cos{\alpha}}}\right) =$
 
-$- \sqrt{\frac{1}{\left(2 + 2 cos\left(\alpha\right)\right)^{2} \left(2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)\right)}} cos\left(\alpha\right) sin\left(\alpha\right)=$
-$- \frac{cos\left(\alpha\right) sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(2 + 2 cos\left(\alpha\right)\right)}$
+$ \frac{1}{\sqrt{2}} \left(\frac{4 + cos^{2}{\alpha} + 4\cos{\alpha} - 2 - 2\cos{\alpha}}{2 + 2\cos{\alpha}}\right)^{-\frac{1}{2}}
+  \left(\frac{1}{2}\left(1 + \cos{\alpha}\right)^{-\frac{1}{2}} -\frac{1}{2}\left(1 + \cos{\alpha}\right)^{-\frac{3}{2}}\right)\left(-\sin{\alpha}\right) =$
 
+$ \frac{1}{\sqrt{2}}\sqrt{2}\left(2 + cos^{2}{\alpha} + 2\cos{\alpha}\right)^{-\frac{1}{2}} \left(1 + \cos{\alpha}\right)^{\frac{1}{2}}
+  \left(\frac{1}{2}\left(1 + \cos{\alpha}\right)^{-\frac{1}{2}} -\frac{1}{2}\left(1 + \cos{\alpha}\right)^{-\frac{3}{2}}\right)\left(-\sin{\alpha}\right) =$
+
+$ \left(2 + cos^{2}{\alpha} + 2\cos{\alpha}\right)^{-\frac{1}{2}} 
+  \frac{1}{2}\left(\left(1 + \cos{\alpha}\right)^{0} -\left(1 + \cos{\alpha}\right)^{-1}\right)\left(-\sin{\alpha}\right) =$
+
+$ \frac{1}{\sqrt{  2 + cos^{2}{\alpha} + 2\cos{\alpha}  }}
+  \frac{1}{2}\left(1 - \frac{1}{1 + \cos{\alpha}}\right)\left(-\sin{\alpha}\right) =$
+
+$ \frac{-\sin{\alpha}}{2\sqrt{ cos^{2}{\alpha} + 2\cos{\alpha} + 2 }}
+  \frac{\cos{\alpha}}{1 + \cos{\alpha}} =$
+
+$ -\frac{\sin{\alpha}\cos{\alpha}}{2\left(1 + \cos{\alpha}\right)\sqrt{ cos^{2}{\alpha} + 2\cos{\alpha} + 2 }}$
 
 \noindent$\frac{d}{d\alpha}d\left(B',C'\right)=$
 
-$\frac{cos^{2}\left(\alpha\right) sin\left(\alpha\right) - 2 \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right) sin\left(\alpha\right)}{\left(1 + cos\left(\alpha\right)\right)^{2} \left(-1 + \frac{\left(1 + cos\left(\alpha\right) + cos^{2}\left(\alpha\right)\right)^{2}}{\left(1 + cos\left(\alpha\right)\right)^{2}}\right)^{0.5}}=$
-$\frac{cos^{2}\left(\alpha\right) sin\left(\alpha\right) - 2 \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right) sin\left(\alpha\right)}{\left(1 + cos\left(\alpha\right)\right)^{2} \left(-1 + \left(1 + \frac{cos^{2}\left(\alpha\right)}{1 + cos\left(\alpha\right)}\right)^{2}\right)^{0.5}}=$
+$ \left(\left(-1 + \left( \frac{1 + \cos{\alpha} + cos^{2}{\alpha}}{1 + \cos{\alpha}}
+                   \right ) ^{2}\right)\right)^{-\frac{1}{2}}
+   \frac{d}{d\alpha} \left (\frac{1 + \cos{\alpha} + cos^{2}{\alpha}}{1 + \cos{\alpha}}
+                           \right) =$
 
-$\frac{cos^{2}\left(\alpha\right) sin\left(\alpha\right) - 2 \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right) sin\left(\alpha\right)}{\left(1 + cos\left(\alpha\right)\right)^{2} \left(2 \frac{cos^{2}\left(\alpha\right)}{1 + cos\left(\alpha\right)} + \frac{cos^{4}\left(\alpha\right)}{\left(1 + cos\left(\alpha\right)\right)^{2}}\right)^{0.5}}=$
-$\frac{cos^{2}\left(\alpha\right) sin\left(\alpha\right) - 2 \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right) sin\left(\alpha\right)}{\left(\frac{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)}{\left(1 + cos\left(\alpha\right)\right)^{2}}\right)^{0.5} \left(1 + cos\left(\alpha\right)\right)^{2} cos\left(\alpha\right)}=$
 
-$\frac{cos^{2}\left(\alpha\right) sin\left(\alpha\right) - 2 \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right) sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right)}=$
-$\frac{cos^{2}\left(\alpha\right) sin\left(\alpha\right) - 2 \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right) sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right)}=$
 
-$\frac{\left(- \left(2 + 2 cos\left(\alpha\right)\right) cos\left(\alpha\right) + cos^{2}\left(\alpha\right)\right) sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(1 + cos\left(\alpha\right)\right) cos\left(\alpha\right)}=$
-$- \frac{\left(2 + cos\left(\alpha\right)\right) sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(1 + cos\left(\alpha\right)\right)}$
+$ \left(\left(-1 + \left(1 +  \frac{cos^{2}{\alpha}}{1 + \cos{\alpha}}
+                   \right ) ^{2}\right)\right)^{-\frac{1}{2}}
+   \frac{d}{d\alpha} \left (1 + \frac{cos^{2}{\alpha}}{1 + \cos{\alpha}}
+                           \right) =$
+
+
+$ -\left(\left( 2\frac{cos^{2}{\alpha}}{1 + \cos{\alpha}} + \left(\frac{cos^{2}{\alpha}}{1 + \cos{\alpha}} \right ) ^{2}
+        \right)
+   \right)^{-\frac{1}{2}}
+  \frac{2\cos{\alpha}\left(1+\cos{\alpha}\right) - cos^2{\alpha}}{\left(1 + \cos{\alpha}\right)^2}\sin{\alpha}$
+
+
+$ -\sin{\alpha}\left(  
+  \frac{ 2cos^{2}{\alpha}\left(1 + \cos{\alpha}\right) + cos^4{\alpha} }
+       {\left(1 + \cos{\alpha}\right)^2}
+   \right)^{-\frac{1}{2}}
+  \frac{2\cos{\alpha} + cos^2{\alpha}}{\left(1 + \cos{\alpha}\right)^2}$
+
+$ -\frac{\sin{\alpha}\left(1 + \cos{\alpha}\right)\cos{\alpha}\left(2  +\cos{\alpha}\right)}
+   {\cos{\alpha}\sqrt{ 2\left(1 + \cos{\alpha}\right) + cos^2{\alpha} }\left(1 + \cos{\alpha}\right)^2}  =$
+
+
+$- \frac{\left(2 + \cos{\alpha}\right) \sin{\alpha}}{\sqrt{2 + 2 \cos{\alpha} + cos^{2}{\alpha}} \left(1 + \cos{\alpha}\right)}$
 
 \noindent
 And sum the three up:
@@ -151,17 +183,15 @@ And sum the three up:
 $\frac{d}{d\alpha}\left(2d\left(A', B'\right) + d\left(B', C'\right)\right) = $
 
 $2\frac{d}{d\alpha}d\left(A', B'\right) + \frac{d}{d\alpha}d\left(B', C'\right) = 
- - \frac{\left(2 + cos\left(\alpha\right)\right) sin\left(\alpha\right)}
-        {\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(1 + cos\left(\alpha\right)\right)} - $
-
+ - \frac{\left(2 + \cos{\alpha}\right) \sin{\alpha}}{\sqrt{2 + 2 \cos{\alpha} + cos^{2}{\alpha}} \left(1 + \cos{\alpha}\right)} - $
   
-$  2\frac{cos\left(\alpha\right) sin\left(\alpha\right)}
-  {\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(2 + 2 cos\left(\alpha\right)\right)} =$
+$  2\frac{\cos{\alpha} \sin{\alpha}}
+  {\sqrt{2 + 2 \cos{\alpha} + cos^{2}{\alpha}} \left(2 + 2 \cos{\alpha}\right)} =$
 
-$  \frac{-\left(2 + cos\left(\alpha\right)\right) sin\left(\alpha\right) - cos\left(\alpha\right) sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)} \left(1 + cos\left(\alpha\right)\right)} $
+$  \frac{-\left(2 + \cos{\alpha}\right) \sin{\alpha} - \cos{\alpha} \sin{\alpha}}{\sqrt{2 + 2 \cos{\alpha} + cos^{2}{\alpha}} \left(1 + \cos{\alpha}\right)} $
 
-$- \frac{2sin\left(\alpha\right)\left(1 + cos\left(\alpha\right)\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)\left(1 + cos\left(\alpha\right)\right)}} =$
-$- \frac{2sin\left(\alpha\right)}{\sqrt{2 + 2 cos\left(\alpha\right) + cos^{2}\left(\alpha\right)}}$
+$- \frac{2\sin{\alpha}\left(1 + \cos{\alpha}\right)}{\sqrt{2 + 2 \cos{\alpha} + cos^{2}{\alpha}\left(1 + \cos{\alpha}\right)}} =$
+$- \frac{2\sin{\alpha}}{\sqrt{2 + 2 \cos{\alpha} + cos^{2}{\alpha}}}$
 
 \noindent
 We end up with an expression that is negative and null only at zero (within the
@@ -175,32 +205,36 @@ acosh\left(\frac{1 + cos\left(0\right) + cos^{2}\left(0\right)}{1 + cos\left(0\r
 \end{center}
 
 
-Appendix: proof the triangle connecting the bases of the heights of such triangles 
-is indeed the Fangano orbit
-
+\section{Appendix A}
+We will provide a short proof of the fact that the triangle connecting the bases
+of the heights of such triangles (with two null angles) is indeed a billiard orbit.
+ 
 We will achieve the above by finding the equations of the edges and showing the
 angles of intersection with the edges are equal to each other, which is easy to
 see means the deriviative's are equal in absolute values but opposite in sign.
-
 
 First we calculate the centers of the Euclidean circles along which the edges
 of the inner triangle $A'B'C'$ lay using the formula:
 
 \begin{center}
-  $c\left(x,y\right) = \frac{\left|x\right|**2 - \left|x\right|**2}{2\left(\Re(x) - \Re(y)\right)} $
+  $c\left(x,y\right) = \frac{\left|x\right|^{2} - \left|y\right|^{2}}{2\left(\Re(x) - \Re(y)\right)} $
 \end{center}
 
 Where $c\left(x,y\right)$ represents the center of the Euclidean circle passing
 through $x$ and $y$.
 
-  $c\left(A',B'\right) = \left(2 + 2\cos\left(\alpha\right) - 2\right) / {2\left(0 - 1\right)} = -cos(\alpha) $
+  $c\left(A',B'\right) = \frac{\left(2 + 2\cos{\alpha} - 2\right)}{{2\left(0 - 1\right)}} = -cos(\alpha) $
 
-  $c\left(A',B'\right) = \left(2 - 2*\left(1+ cos\left(\alpha\right)\right)**2\right) / \left(2*\left(1 - 1 -  cos\left(a\right)\right)\right), 
-    cos\left(\alpha\right) + 2 = cos\left(\alpha\right)$
+  $c\left(B',C'\right) = \frac{2 - 2\left(1 + \cos{\alpha}\right)^2}{2\left(1 - 1 - \cos{\alpha}\right)} = $
+  $ \frac{1 - \left(1 + \cos{\alpha}\right)^2}{-\cos{\alpha}} = \cos{\alpha} + 2$
 
-  $c\left(C',A'\right) = \frac{2\left(1 + cos\left( \alpha \right) \right)^2 - \left(2 + 2cos\left(\alpha\right)\right)} 
-                                         {2\left(1+cos\left(\alpha \right) \right)}    $
+  $ \frac{-2\cos{\alpha} - cos^{2}{\alpha}}{-\cos{\alpha}} = \cos{\alpha} + 2$
 
+  $c\left(C',A'\right) = \frac{2\left(1 + \cos{\alpha} \right)^2 - \left(2 + 2\cos{\alpha}\right)}{2\left(1+\cos{\alpha} - 0\right)} =$
+
+  $\frac{\left(1 + \cos{\alpha} \right)^2 - \left(1 + \cos{\alpha}\right)}{1+\cos{\alpha}} =$
+  $\frac{\left(1 + \cos{\alpha} \right)^2 - \left(1 + \cos{\alpha}\right)}{1+\cos{\alpha}} = 1 + \cos{\alpha} - 1 = $
+  $\cos{\alpha}$
 
 It is easy to show hat the differential equation describing a circle whose center
 $r$ is on the real axis can be written as:
@@ -209,7 +243,7 @@ $2\left(x-r\right)+2yy'=0$
 
 Sustitutibg the above calculated centers:
   
-\noindent $AB$ :  $y' = -\frac{x + cos\left(\alpha \right)}{ y} $
+\noindent $AB$ :  $y' = -\frac{x + \cos{\alpha}}{ y} $
 
 \noindent $BC$ :  $y' = -\frac{x - cos\left(a\right) - 2}{y}$
 
@@ -219,29 +253,48 @@ Sustitutibg the above calculated centers:
 Substituting $(x,y)$ for the real and imaginary parts of the endpoints $A'$,$B'$,$C'$ we get:
 
 \noindent $A$: 
+on $CA$ : $-\frac{-\cos{\alpha}}{\sqrt{2 + 2 \cos{\alpha}}} = \frac{\cos{\alpha}}{\sqrt{2 + 2 \cos{\alpha}}}$
 
-on $CA$ : $-\frac{-cos\left(\alpha \right)}{\sqrt{2 + 2 cos\left(\alpha\right)}}$
-
-on $AB$ : $-\frac{cos\left(\alpha \right)}{\sqrt{2 + 2 cos\left(\alpha\right)}}$
+on $AB$ : $-\frac{\cos{\alpha}}{\sqrt{2 + 2 \cos{\alpha}}}$
 
 \noindent $B$: 
-on $AB$ : $-\left(1 + cos\left(\alpha \right)\right)$
+on $AB$ : $-\left(1 + \cos{\alpha}\right)$
 
-on $BC$ : $-\left(1 - cos\left(\alpha \right) - 2\right)$ =  $1 + cos\left(\alpha \right)$
+on $BC$ : $-\left(1 - \cos{\alpha} - 2\right)$ =  $1 + \cos{\alpha}$
 
 \noindent $C$: 
+on $BC$ : $-\frac{1 + \cos{\alpha} - cos\left(a\right) - 2}{1 + \cos{\alpha}} = \frac{1}{1 + \cos{\alpha}}$
 
-on $BC$ : $-\frac{1 + cos\left(\alpha\right) - cos\left(a\right) - 2}{1 + cos\left(\alpha\right)} = \frac{1}{1 + cos\left(\alpha\right)}$
+on $CA$ : $-\frac{1 + \cos{\alpha} - cos\left(a\right)    }{1 + \cos{\alpha}} = -\frac{1}{1 + \cos{\alpha}}$
 
-on $CA$ : $-\frac{1 + cos\left(\alpha\right) - cos\left(a\right)    }{1 + cos\left(\alpha\right)} = -\frac{1}{1 + cos\left(\alpha\right)}$
+
+\noindent$\sin{\alpha}
+      \frac{
+        -\cos{\alpha} - \cos^{3}{\alpha} - \cos{\beta} + \cos^{5}{\beta} - 2\cos^{2}{\beta}\cos{\alpha} - 3\cos{\beta}\cos^{2}{\alpha} - 2\cos^{2}{\beta}\cos^{3}{\alpha} + 2\cos^{4}{\beta}\cos{\alpha} - \cos{\beta}\cos^{4}{\alpha},
+      }{
+         \left(  1 + \cos^{2}{\alpha} + \cos^{2}{\beta} + 4\cos{\alpha}\cos{\beta} + 5 \cos^{2}{\alpha}\cos^{2}{\beta} + 2  \cos{\beta} \cos^{3}{\alpha} + 2\cos{\alpha}\cos^{3}{\beta}\right)
+          \sqrt{6\cos^{2}{\alpha}\cos^{2}{\beta} + 2\cos{\alpha}\cos{\beta} + \cos^{4}{\alpha} + \cos^{4}{\beta} + \cos^{2}{\alpha} + \cos^{2}{\beta} + 4\cos^{3}{\alpha}\cos{\beta} + 4\cos{\alpha}\cos^{3}{\beta}}
+      } + $
+
+\noindent$-sin{\alpha}
+      \frac{
+        \cos{\beta}  \cos{\alpha}
+      }{
+        \left( 1 + \cos^{2}{\beta} + 2\cos{\alpha}\cos{\beta} \right)
+        \sqrt{ \cos^{2}{\beta} + \cos^{2}{\alpha} + 2  \cos{\beta}  \cos{\alpha} + 1 }
+      }
+$
+      
+\noindent$-\sin{\alpha}
+      \frac{
+        1 + \cos^{2}{\alpha} + 3\cos{\alpha}\cos{\beta}  + \cos^{2}{\beta}
+      }{
+       \left(  1 + \cos^{2}{\alpha} + 2\cos{\alpha}\cos{\beta} \right)
+        \sqrt{ \cos^{2}{\alpha} + \cos^{2}{\beta} + 2  \cos{\alpha}  \cos{\beta} + 1 }
+      }
+$
 
 \end{document}
 
 
-$B' = 1 + i$ 
-
-$A' = i \sqrt{2 + 2 cos\left(\alpha\right)}$
-
-
-$C' = \left(1 + i\right) \left(1 + cos\left(\alpha\right)\right)$
 
