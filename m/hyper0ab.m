@@ -156,10 +156,6 @@ dAABBda = [dAABBda ...
     sa .* (-ca - ca3 - cb + cb5 - 2.*cb2.*ca - 3.*cb.*ca2 - 2.*cb2.*ca3 + 2.*cb4.*ca - cb.*ca4) ./ ...
 ...%-----------------------------------------------------------------------------------------------
    ((1 + ca2 + cb2 + 4.*ca.*cb + 5.* ca2.*cb2 + 2 .* cb .*ca3 + 2.*ca.*cb3) .* sqrt(6.*ca2.*cb2 + 2.*ca.*cb + ca4 + cb4 + ca2 + cb2 + 4.*ca3.*cb + 4.*ca.*cb3))...
-    ...
-    sa .* (-ca - ca3 - cb + cb5 - 2.*cb2.*ca - 3.*cb.*ca2 - 2.*cb2.*ca3 + 2.*cb4.*ca - cb.*ca4) ./ ...
-...%-----------------------------------------------------------------------------------------------
-   ((1 + ca2 + cb2 + 4.*ca.*cb + 5.* ca2.*cb2 + 2 .* cb .*ca3 + 2.*ca.*cb3) .* sqrt(6.*ca2.*cb2 + 2.*ca.*cb + ca4 + cb4 + ca2 + cb2 + 4.*ca3.*cb + 4.*ca.*cb3))...
 ];
 
 cor(dAABBda)
@@ -223,23 +219,41 @@ dBBCCda = [dBBCCda ...
     ];
 
 
-cor(dBBCCda)
-mean(dBBCCda, 1)
+%cor(dBBCCda)
+%mean(dBBCCda, 1)
 
 dall = sa .* (-ca - ca3 - cb + cb5 - 2.*cb2.*ca - 3.*cb.*ca2 - 2.*cb2.*ca3 + 2.*cb4.*ca - cb.*ca4) ./ ...
-    ((1 + ca2 + cb2 + 4.*ca.*cb + 5.* ca2.*cb2 + 2 .* cb .*ca3 + 2.*ca.*cb3) .* sqrt(6.*ca2.*cb2 + 2.*ca.*cb + ca4 + cb4 + ca2 + cb2 + 4.*ca3.*cb + 4.*ca.*cb3)) + ...
-    -sa .* cb .* ca                     ./ (1 + cb2 + 2.*ca.*cb) ./ sqrt(cb2 + ca2 + 2 .* cb .* ca + 1) + ...
-    -sa .* (1 + ca2 + 3.*ca.*cb  + cb2) ./ (1 + ca2 + 2.*ca.*cb) ./ sqrt(ca2 + cb2 + 2 .* ca .* cb + 1);
+    (1 + ca2 + cb2 + 4.*ca.*cb + 5.* ca2.*cb2 + 2 .* cb .*ca3 + 2.*ca.*cb3) ./ sqrt(6.*ca2.*cb2 + 2.*ca.*cb + ca4 + cb4 + ca2 + cb2 + 4.*ca3.*cb + 4.*ca.*cb3) + ...
+    + ...
+    -sa .* cb .* ca                     ./ ...
+    (1 + cb2 + 2.*ca.*cb) ./ sqrt(cb2 + ca2 + 2 .* cb .* ca + 1) + ...
+    + ...
+    -sa .* (1 + ca2 + 3.*ca.*cb  + cb2) ./ ...
+    (1 + ca2 + 2.*ca.*cb) ./ sqrt(ca2 + cb2 + 2 .* ca .* cb + 1);
 
 
-all = acosh(1 + nrm2(AA - BB)./ (2 .* imag(AA).*imag(BB))) + ...
-      acosh(1 + nrm2(BB - CC)./ (2 .* imag(BB).*imag(CC))) + ...
-      acosh(1 + nrm2(CC - AA)./ (2 .* imag(CC).*imag(AA)));
+dall = [dall;
+        sa .* (...
+(-ca - ca3 - cb + cb5 - 2.*cb2.*ca - 3.*cb.*ca2 - 2.*cb2.*ca3 + 2.*cb4.*ca - cb.*ca4).*(1 + cb2 + 2.*ca.*cb).*(1 + ca2 + 2.*ca.*cb).*sqrt(cb2 + ca2 + 2 .* cb .* ca + 1) + ...
+-cb .* ca.*(1 + ca2 + 2.*ca.*cb).*(1 + ca2 + cb2 + 4.*ca.*cb + 5.* ca2.*cb2 + 2 .* cb .*ca3 + 2.*ca.*cb3).*sqrt(6.*ca2.*cb2 + 2.*ca.*cb + ca4 + cb4 + ca2 + cb2 + 4.*ca3.*cb + 4.*ca.*cb3).*(1 + ca2 + 2.*ca.*cb).*sqrt(cb2 + ca2 + 2 .* cb .* ca + 1) + ...
+-(1 + ca2 + 3.*ca.*cb  + cb2).*
 
-plot3(alpha, beta, all, 'g')
-figure;
-plot3(alpha, beta, dall, 'b')
 
+
+
+
+
+        ) ./ ];
+
+all = fangano_circumference(alpha,beta);
+
+%plot3(alpha, beta, all, 'g')
+%figure;
+%plot3(alpha, beta, dall, 'b')
+
+mmm = [dall (fangano_circumference(alpha+0.001,beta)-fangano_circumference(alpha,beta))/0.001];
+cor(mmm)
+mean(mmm, 1)
 %all = reshape(all, [sqrt(numel(all)),sqrt(numel(all))])
 %image(all ./ max(max(all)) * 64)
 
@@ -291,14 +305,7 @@ dst = acosh(1 + nrm2(BB - CC)./ (2 .* imag(BB).*imag(CC)));
 end
 
 function res = fangano_circumference(a,b)
-A = cos(a) + i .* sin(a);
-B = -cos(b) + i .* sin(b);
-nrm2 = @(x)x.*conj(x);
-nrm = @(x)sqrt(nrm2(x));
 
-AA =  real(B) + i .* nrm(A - real(B));
-BB =  real(A) + i .* nrm(B - real(A));
-CC = i;
-res =  acosh(1 + nrm2(BB - CC)./ (2 .* imag(BB).*imag(CC)));
+res =  calcDistAABB(a,b) + calcDistBBCC(a,b) + calcDistAACC(a,b);
 
 end
