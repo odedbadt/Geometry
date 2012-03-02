@@ -1,0 +1,175 @@
+\documentclass[a4paper,10pt]{article}
+\title{}
+\author{}
+\usepackage{graphicx} 
+\parskip 7.2pt
+
+\begin{document}
+\maketitle
+\begin{abstract}
+
+We consider the family of trianges in the hyperbolic two dimensional space with
+angles $\alpha, \beta, \gamma < \frac{\pi}{2}$ and test the Fangano orbits enclosed
+in them. We try to find those whose orbits are in some sense 'maximal'. A question
+arises as to what sense the maximum is measure since normalization not as simple as
+the Euclidean case. We show that the area of the triangle is in may ways a good
+normailzation factor and that maximizing the ratio between the length of the Fangano
+orbit and the triangle's area makes sense.
+
+
+\end {abstract}
+
+\section{The equilateral case}
+
+We use the above to derive the formula for the Fangano triangle length of the
+equilateral hyperbolic triangle of edge length $a$.
+
+Using the rule of cosines:
+
+\begin{center}
+$\frac{\cosh^2{a} - \cosh{a}}{\sinh^2{a}} = \cos{\alpha} = \frac{\cosh^2{\frac{a}{2}} - \cosh{\frac{x}{3}}}{\sinh^2{\frac{a}{2}}}$
+\end{center}
+
+And solving for x:
+
+$ \cosh{\frac{x}{3}} = \cosh^2{\frac{a}{2}} - \sinh^2{\frac{a}{2}}\frac{\cosh^2{a} - \cosh{a}}{\sinh^2{a}} = $
+
+$ \cosh{\frac{x}{3}} = \frac{1}{2}\left(\cosh{a}+1\right) - \frac{1}{2}\left(\cosh{a}-1\right)\frac{\cosh^2{a} - \cosh{a}}{\cosh^2{a} - 1} = $
+
+$ \cosh{\frac{x}{3}} = \frac{1}{2}\left(\cosh{a}+1\right) - \frac{1}{2}\frac{\cosh{a}\left(\cosh{a}-1\right)}{\cosh{a} + 1} =$
+
+$ \cosh{\frac{x}{3}} = \frac{\left(\cosh{a}+1\right)^{2} - \cosh{a}\left(\cosh{a}-1\right)}{2\cosh{a} + 2} =$
+
+$ \cosh{\frac{x}{3}} = \frac{3\cosh{a}+1}{2\cosh{a} + 2} =$
+$ \cosh{\frac{x}{3}} = \frac{3\cosh{a}+3}{2\cosh{a} + 2} - \frac{2}{2\cosh{a} + 2} = \frac{3}{2} - \frac{1}{\cosh{a} + 1}$
+
+And so the length of the Fangano orbit is:
+
+\begin{center}
+$ 3acosh\left(\frac{3}{2} - \frac{1}{\cosh{a} + 1}\right)$
+\end{center}
+
+We easily deduce from the rule of cosines that the area of the Triangle is:
+
+
+$ \pi - 3\alpha = \pi - 3acos\left(\frac{\cosh^2{a} - \cosh{a}}{\sinh^2{a}}\right) = \pi - 3acos\left(\frac{\cosh^2{a} - \cosh{a}}{\cosh^2{a} - 1}\right) = \pi - 3acos\left(\frac{\cosh{a}}{\cosh{a} + 1}\right) = $
+
+\begin{center}
+
+$ \pi - 3acos\left(1 - \frac{1}{\cosh{a} + 1}\right) $
+\end{center}
+
+And also:
+
+\begin{center}
+
+$ \cos{\alpha} = 1 - \frac{1}{\cosh{a}+1} $
+\end{center}
+
+The circumference is, naturally $3a$.
+
+
+It is thus natural to ask, which $\alpha$ maximizes the ratio $r$ between the
+Fangano orbit length and the area of the triangle.
+\begin {center}
+
+$\left(\frac{  3acosh\left(\frac{1}{2} + \cos{\alpha} \right)}{\pi - 3\alpha} \right)' = 3\frac{-\sin{\alpha}\left(\left(\frac{1}{2}  +\cos{\alpha}\right)^2 + 1\right)^{-\frac{1}{2}} +3acosh\left(\frac{1}{2}+\cos{\alpha}\right) }{\left( \pi-3\alpha \right)^2}$
+
+\end{center}
+
+
+
+
+\section{The general case}
+
+We will skip showing that the Fangano orbit is indeed the triangle connecting the
+bases of the heights and from now on refer to such inner triangles when using the
+term Fangano orbit.
+
+Let us first find an explicit formula for the length of the Fangano orbit,
+starting with the length of the perpendicular $p_c$ to $c$ leaving $C$.
+By the hyperbolic pythagorian rule, the following holds for every triangle:
+
+\begin{center}
+$ (*) \cosh{a} = \cosh{c_a}\cosh{p_c}$
+
+$ (**) \cosh{b} = \cosh{c_b}\cosh{p_c}$
+\end{center}
+
+We substitue for:
+
+\begin{center}
+$ \cosh{c_a} = \cosh{c - c_b} = \cosh{c}\cosh{c_b} - \sinh{c}\sinh{c_b} $
+\end{center}
+
+in $(*)$ and recieve: 
+
+\begin{center}
+$\cosh{a} = \left(\cosh{c}\cosh{c_b} - \sinh{c}\sinh{c_b}\right)\cosh{p_c} =$
+
+
+\end{center}
+
+
+Dividing by $(**)$:
+
+$\frac{\cosh{a}}{\cosh{b}} = \frac{\cosh{c}\cosh{c_b} - \sinh{c}\sinh{c_b}}{\cosh{c_b}} =$
+$\cosh{c} - \frac{\sinh{c}\sinh{c_b}}{\cosh{c_b}} $
+
+We get:
+
+\begin{center}
+$\tanh{c_b} = \frac{\cosh{c}\cosh{b} - \cosh{a}}{\cosh{b}\sinh{c}} $
+
+$\cosh{c_b} = \frac{1}{\sqrt{1-\tanh^2{c_b}}} = \frac{1}{\sqrt{1 - \left(\frac{\cosh{c}\cosh{b} - \cosh{a}}{\cosh{b}\sinh{c}}\right)^2}} = $
+
+$ \frac{\cosh{b}\sinh{c}}{\sqrt{\cosh^2{b}\sinh^2{c} - \left(\cosh{c}\cosh{b} - \cosh{a}\right)^2}} =$
+
+$ \frac{\cosh{c}\cosh{b}}{\sqrt{2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{b} - \cosh^2{a}}}$
+
+\end{center}
+
+and in the same way:
+\begin{center}
+$\tanh{b_c} = \frac{\cosh{b}\cosh{c} - \cosh{a}}{\cosh{c}\sinh{b}} $
+
+$\cosh{b_c} = \frac{\cosh{b}\cosh{c}}{\sqrt{2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{c} - \cosh^2{a}}}  $
+\end{center}
+
+
+Next we use the hyperbolic rule of cosines:
+
+\begin{center}
+$\frac{\cosh{b}\cosh{c} - \cosh{a}}{\sinh{b}\sinh{c}} = \cos{\alpha} = \frac{\cosh{b_c}\cosh{c_b} - \cosh{a^{*}}}{\sinh{b_c}\sinh{c_b}}$
+\end{center}
+
+Expressing $a^{*}$:
+
+\begin{center}
+$\cosh{a^{*}} = \cosh{b_c}\cosh{c_b} - \frac{\cosh{b}\cosh{c} - \cosh{a}}{\sinh{b}\sinh{c}}\sinh{b_c}\sinh{c_b} = $
+
+$\cosh{b_c}\cosh{c_b}\left(1 - \frac{\cosh{a}\cosh{c} - \cosh{a}}{\sinh{b}\sinh{c}}\tanh{b_c}\tanh{c_b}\right) = $
+
+$\cosh{b_c}\cosh{c_b}\left(1 - \frac{\cosh{a}\cosh{c} - \cosh{a}}{\sinh{b}\sinh{c}}  \frac{\cosh{c}\cosh{b} - \cosh{a}}{\cosh{b}\sinh{c}} \frac{\cosh{b}\cosh{c} - \cosh{a}}{\cosh{c}\sinh{b}}    \right) =$
+
+$\frac{\cosh{c}\cosh{b}}{\sqrt{2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{b} - \cosh^2{a}}}\frac{\cosh{b}\cosh{c}}{\sqrt{2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{c} - \cosh^2{a}}}\left(1 - \frac{\left(\cosh{b}\cosh{c} - \cosh{a}\right)^3  }{\cosh{b}\cosh{c}\sinh^2{b}\sinh^2{c}}\right) =$
+
+$\frac{\cosh{c}\cosh{b}}{\sqrt{2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{b} - \cosh^2{a}}}\frac{\cosh{b}\cosh{c}}{\sqrt{2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{c} - \cosh^2{a}}}\left(1 - \frac{\left(\cosh{b}\cosh{c} - \cosh{a}\right)^3  }{\cosh{b}\cosh{c}\sinh^2{b}\sinh^2{c}}\right) =$
+
+
+$\frac{\cosh{c}\cosh{b}\left(\cosh{c}\cosh{b} - \frac{\left(\cosh{b}\cosh{c} - \cosh{a}\right)^3}{\sinh^2{b}\sinh^2{c}}\right)}{\sqrt{\left(2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{b} - \cosh^2{a}\right)\left(2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{c} - \cosh^2{a}\right)}} =$
+
+$\frac{\cosh{c}\cosh{b}\left(\cosh{c}\cosh{b} - \frac{\left(\cosh{b}\cosh{c} - \cosh{a}\right)^3}{ \left( \cosh^2{b}-1\right)\left(\cosh^2{c} -1\right) }\right)}{\sqrt{\left(2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{b} - \cosh^2{a}\right)\left(2\cosh{a}\cosh{b}\cosh{c} - \cosh^2{c} - \cosh^2{a}\right)}} =$
+
+\end{center}
+
+
+
+
+
+
+
+\end{document}
+
+
+
