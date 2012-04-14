@@ -58,17 +58,6 @@ values tend to the natural Euclidean version of the expression as the
 sum of the angles approaches $\pi$. We formulate and prove the above in
 appendix A.
 
-\section{Notation}
-All through the text triangles vertices are marked with capital Latin
-letters $A$, $B$ and $C$. Hyperbolic lengths of edges are marked $a$,
-$b$ and $c$, each letter refering to the length of the edge opposite
-to the matching vertex, $a$ for example refers to $d\left(B, C\right)$.
-Angles $\alpha$, $\beta$ and $\gamma$ refer to $\alpha = \angle BAC$, 
-$\alpha = \angle CBA$ and $\alpha = \angle ACB$ respectfully.
-
-
-
-
 \begin{figure}
 \centering
 \begin{asy}
@@ -111,17 +100,40 @@ path frame = (-1,-1)--(-1,1)--(1, 1)--(1,-1)--cycle;
 clip(frame);
 \end{asy}
 \caption{Notation for vertices, adges and angles}
-\label{fig:generic-triangle}
+\label{fig-notation}
 \end{figure}
 
 
+\section{Notation}
+
+All through the text, points in the hyperbolic plane are marked
+with Latin capitals. When using a letter, say $A$ in a specific model
+it may refer either to the point in the hyperbolc plane or to the point
+representing it in the model, which is used can be deduced by context.
+
+For two different points $A$ and $B$, $AB$ marks the segment connecting
+point $A$ and point $B$, or the model specific representation of the segment
+- which need not be an Euclidean segment.
+It is important to note that in Euclidean embeded models the Euclidean segment
+and hyperbolic segment do not necessarily coincide, in fact they usually do not,
+in those cases $AC$ refers to the hyperbolic segment and not the Euclidean segment.
+
+In some cases $AB$ may refer to the geodesic on which segment $AB$ is part of.
+In those cases it is specifically noted by refering to it as 'the geodesic $AB$'.
+
+Triangle vertices are marked with the capital Latins $A$, $B$ and $C$.
+Hyperbolic lengths of edges are marked $a$, $b$ and $c$, each refering to 
+the length of the edge opposite
+to the matching vertex, $a$ for example refers to $d\left(B, C\right)$ 
+Angles $\alpha$, $\beta$ and $\gamma$ refer to $\alpha = \angle BAC$, 
+$\alpha = \angle CBA$ and $\alpha = \angle ACB$ respectfully
+(see Figure \ref{fig-notation}).
+
+The terms Geodesics, Hyperbolic distances, segment lenghs angles and 
+triangles are all defined and explained in section \ref{sec-hyperbolicgeom}.
 
 
-
-
-
-
-
+\label{sec-hyperbolicgeom}
 \section{Hyperbolic Geometry}
 \subsection{Short introduction to Hyperbolic Geometry}
 \subsection{Hyperbolic Trigonometry}
@@ -142,7 +154,6 @@ First Hyperbolic law of cosines
 \end{definition}
 
 
-
 \label{hyperbolicheights2}
 \begin{theorem}
 The heights of an acute angled hyperbolic triangle are concurent
@@ -154,6 +165,58 @@ In an acute angled triangle $ABC$, the height leaving $A$ crosses $BC$.
 \end{theorem}
 
 \subsection{The half plane model}
+
+Note: in the following text, half plane points are sometimes parameterized by the
+value of their x coordinate and their suqare norm, for example:
+\[
+P = \left(x, \sqrt{r - x^2}\right)\\
+\]
+In which cases we always implicitly assume $x$ is in $\mathbb{R}$ and $s$, the square norm, is in $\mathbb{R_+}$.
+
+\label{half-plane-concurrent}
+\begin{theorem}
+
+Let
+\[
+P_i = \left(x_i, \sqrt{s_i - x_i^2}\right), i\in\left\{0,1,2\right\}
+\]
+
+Be three distinct points on the same geodesic, then:
+
+\[
+  \left(x_2 - x_1\right)\left(s_3 - s_2\right) = \left(x_3 - x_2\right)\left(s_2 - s_1\right)
+\]
+\end{theorem}
+\begin{proof}
+...
+\end{proof}
+
+\label{half-plane-concurrent}
+\begin{theorem}
+
+Let
+\[
+P_i = \left(x_i, \sqrt{s_i - x_i^2}\right), i\in\left\{1,2,3,4\right\}
+\]
+
+
+
+Be four distinct points such that the geodesics $P_1P_2$ and $P_3P_4$ intersect the y-axis at
+points $(0,\sqrt{u})$ and $(0,\sqrt{v})$ (need not be unique, geodesics may coincide with the y-axis)
+then the two geodescis intersect each other and are perpendicular if and only if
+
+\[
+2\left(x_1 - x_2\right)\left(x_3 - x_4\right)\left(u + v\right) + \left(s_1 - s_2\right)\left(s_3 - s_4\right) = 0
+\]
+
+\end{theorem}
+
+\begin{proof}
+...
+\end{proof}
+
+Note: A condition for the fact that the two geodescis meet (not necesseraily being perpendiular) 
+is not as crisp and is not needed in the text and for that reason not detailed.
 
 \section{Closed orbits of acute angled hyperbolic triangles}
 
@@ -246,34 +309,6 @@ Let us show that $f = g$.
 
 \noindent
 We will rely on two half plane identities:
-(I) Let
-\[
-P=\left(u, \sqrt{w - u^2}\right),Q=\left(v, \sqrt{z - v^2}\right),R=\left(0, \sqrt{r}\right)
-\]
-Be three points on the same h-line such that $R$ is on the y-axis. Then:
-
-\[
-  r = \frac{uz - vw}{u - v}
-\]
-Proof:
-...
-
-(I) Let
-\begin{align*}
-P_1 &= \left(x_1, \sqrt{s_1 - x_1^2}\right)\\
-P_2 &= \left(x_2, \sqrt{s_2 - x_2^2}\right)\\
-P_3 &= \left(x_3, \sqrt{s_3 - x_3^2}\right)\\
-P_4 &= \left(x_4, \sqrt{s_4 - x_4^2}\right)\\
-\end{align*}
-
-Be four points such that the circles on which $P_1P_2$ and $P_3P_4$
-are perpendicular at their intersection point and both cross the y 
-axis at points $(0,\sqrt{u})$ and $(0,\sqrt{v})$ respectfully, then:
-\[
-\frac{s_1 - s_2}{2\left(x_1 - x_2\right)} \frac{s_3 - s_4}{2\left(x_3 - x_4\right)} = -\frac{u+v}{2}
-\]
-Proof:
-...
 
 Let us now proove $f=g$.
 We will start by expressing $x$ and $s$ by $a$,$b$,$c$ and $r$, we know that:
