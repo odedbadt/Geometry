@@ -2,6 +2,7 @@
 \title{}
 \author{}
 \usepackage{graphicx} 
+\usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amsfonts} 
 \usepackage{amsopn}
@@ -17,10 +18,12 @@
 \newcommand{\arctanh}{\ensuremath{\mathrm{arctanh}}}
 \newcommand{\arccoth}{\ensuremath{\mathrm{arccoth}}}
 \DeclareMathOperator{\argmax}{arg\,max}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
 
 \begin{document}
 \maketitle
-\begin{abstract}
+\section{introduction}
 
 We consider closed inner orbits connecting edges of acute angled triangles in the
 hyperbolic plane and bound from above the ratio between the Fangano orbit -the
@@ -37,7 +40,7 @@ limit ourselves to the three dimensional closed* polytop:
 
 \begin{center}
    $\mathcal{P} = \left\{\alpha,\beta,\gamma| \alpha + \beta + \gamma <= \pi, 0 <= \alpha,\beta,\gamma <= \frac{\pi}{2}\right\}$
-\end {center}
+\end{center}
 
 We use section 1 to prove the three closed orbits indeed coincide for
 every triangle in our domain of interest, section 2 to express the length of
@@ -55,7 +58,102 @@ values tend to the natural Euclidean version of the expression as the
 sum of the angles approaches $\pi$. We formulate and prove the above in
 appendix A.
 
-\end{abstract}
+\section{Notation}
+All through the text triangles vertices are marked with capital Latin
+letters $A$, $B$ and $C$. Hyperbolic lengths of edges are marked $a$,
+$b$ and $c$, each letter refering to the length of the edge opposite
+to the matching vertex, $a$ for example refers to $d\left(B, C\right)$.
+Angles $\alpha$, $\beta$ and $\gamma$ refer to $\alpha = \angle BAC$, 
+$\alpha = \angle CBA$ and $\alpha = \angle ACB$ respectfully.
+
+
+
+
+\begin{figure}
+\centering
+\begin{asy}
+size (3cm);
+import math;
+import hyperbolic_geometry;
+import fontsize;
+
+unitsize(3cm);
+hyperbolic_point A = hyperbolic_point(2.7, 0);
+hyperbolic_point B = hyperbolic_point(2.6, 100);
+hyperbolic_point C = hyperbolic_point(1.2, 250);
+
+draw(hyperbolic_segment(A,B));
+draw(hyperbolic_segment(B,C));
+draw(hyperbolic_segment(C,A));
+
+
+pair EUA = A.get_euclidean();
+pair EUB = B.get_euclidean();
+pair EUC = C.get_euclidean();
+
+pen p = fontsize(1);
+label("$A$",EUA,E,p);
+label("$\alpha$", (EUA.x - 0.2, EUA.y) , W, p);
+label("$a$", (EUC + EUB)/2, W, p);
+draw(arc(EUA, 0.3, 150, 210, true));
+
+label("$B$",(EUB.x, EUB.y + 0.1), NW, p);
+label("$\beta$", (EUB.x + 0.12, EUB.y - 0.35) , W, p);
+label("$b$", (EUC + EUA)/2, SW, p);
+draw(arc(EUB, 0.4, 260, 310, true));
+
+label("$C$",(EUC.x, EUC.y - 0.05), SW, p);
+label("$\gamma$", (EUC.x + 0.1, EUC.y + 0.15) , W, p);
+label("$c$", (EUB + EUA)/2, SE, p);
+draw(arc(EUC, 0.3, 30, 100, true));
+
+path frame = (-1,-1)--(-1,1)--(1, 1)--(1,-1)--cycle;
+clip(frame);
+\end{asy}
+\caption{Notation for vertices, adges and angles}
+\label{fig:generic-triangle}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\section{Hyperbolic Geometry}
+\subsection{Short introduction to Hyperbolic Geometry}
+\subsection{Hyperbolic Trigonometry}
+
+\label{cosine1}
+\begin{theorem}
+First Hyperbolic law of cosines
+\end{theorem}
+
+\label{cosine2}
+\begin{theorem}
+First Hyperbolic law of cosines
+\end{theorem}
+
+\label{hyperbolicheightexistance}
+\begin{definition}
+
+\end{definition}
+
+
+
+\label{hyperbolicheights2}
+\begin{theorem}
+The heights of an acute angled hyperbolic triangle are concurent
+\end{theorem}
+
+\label{hyperbolicheights2}
+\begin{theorem}
+In an acute angled triangle $ABC$, the height leaving $A$ crosses $BC$.
+\end{theorem}
+
+\subsection{The half plane model}
 
 \section{Closed orbits of acute angled hyperbolic triangles}
 
@@ -72,9 +170,13 @@ And will continue on to show a less trivial fact:
 (IV) The orthic triangle (The triangle connecting the base points of the 
 three altitudes is an inner billiard.
 
-Proof:
+\begin{proof}
 
-Let $D$ be the (hyperbolic) projection of point $A$ to $BC$, $E$ be the 
+Let $D,E,F$ be the unique points on $BC,CA,AB$ such that $AD$ is perpendicular to $BC$,
+$BE$ is perpendicular to $CA$ and $FC$ is perpendicular to $AB$
+(Exist and unique due to \ref{hyperbolicheights2}).
+
+$A$ to $BC$, $E$ be the 
 projection of point $B$ to $AC$, $F$ be the projection of point $C$ to $AB$.
 Let $Q$ be the reflection of $D$ with respect to $AB$. Let $J$ be
 
@@ -109,7 +211,6 @@ G&=&\left(0,\sqrt{g}\right)
 \begin{asy}
 import math;
 import graph;
-
 size (6cm);
 
 pair hlinecenter(pair a, pair b)
@@ -131,6 +232,7 @@ pair cBC = hlinecenter(B,C);
 draw(arc(cAC, length(A-cAC), degrees(A-cAC), degrees(C-cAC), false));
 draw(arc(cBC, length(B-cBC), degrees(B-cBC), degrees(C-cBC), false));
 draw(arc(O, length(C), degrees(C), 90, true));
+
 draw((-10,0)--(10,0));
 draw((0,0)--(0,10));
 \end{asy}
@@ -204,6 +306,7 @@ g &= \frac{ys - (-x)t}{y - (-x)} = \frac{ys + xt}{y + x)}\\
   &= \frac{2c^2\left(a + b\right)r\left(a - b\right) + \left(r - a\right)\left(r - b\right)r\left(b - a\right)}{2c^2\left(a + b\right)\left(a - b\right) + \left(r - a\right)\left(r - b\right)\left(b - a\right)}\\
 &= r
 \end {align*}
+\end{proof}
 
 \section{Equilateral Triangles}
 
@@ -540,6 +643,16 @@ angle (since we covered the case where one angle is zero we can assume
 that only one angle is a right angle).
 
 ** TODO: complete.
+
+\begin{thebibliography}{9}
+
+\bibitem{beardon}
+  Alan F. Beardon
+  The Geometry
+  of Discrete Groups
+  With 93 Illustrations
+
+\end{thebibliography}
 
 \end{document}
 
