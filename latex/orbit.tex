@@ -1,0 +1,118 @@
+\documentclass[a4paper,10pt]{article}
+\title{}
+\author{}
+\usepackage{graphicx} 
+\parskip 7.2pt
+%% Missing trig. and hyp. operators
+\newcommand{\cosec}{\ensuremath{\mathrm{cosec}}}
+\newcommand{\arccosec}{\ensuremath{\mathrm{arccosec}}}
+\newcommand{\arcsec}{\ensuremath{\mathrm{arcsec}}}
+\newcommand{\arccot}{\ensuremath{\mathrm{arccot}}}
+\newcommand{\arcsinh}{\ensuremath{\mathrm{arcsinh}}}
+\newcommand{\arccosh}{\ensuremath{\mathrm{arccosh}}}
+\newcommand{\arctanh}{\ensuremath{\mathrm{arctanh}}}
+\newcommand{\arccoth}{\ensuremath{\mathrm{arccoth}}}
+\begin{document}
+\maketitle
+\begin{abstract}
+
+We consider the single parametered family of triangles in the hyperbolic two 
+dimensional space that have two angles of size zero and one non zero angle.
+More specifically we are interested in the Fangano triangles formed by connecting 
+the bases of the (hyperbolic) heights of the triangles as shown in Figure 1, 
+modeled as will be the whole document in the upper half plane model:
+
+
+Our goal is to understand what $\alpha$ maximizes the perimiter of such triangles.
+We will see that the perimiter of such inner triangles as a function of the free
+angle will of the outer triangle has only one critial point within
+the interval $\left[0,\frac{pi}{2}\right)$ located at zero and is thus monotoneus
+with respect to $\alpha$ and can easily shown to be decreasing. We will conclude
+the maximal perimiter of the Fangano triangle is given in the equilateral
+triangle with angles 0-0-0.
+
+In the appendices we will prove that by connecting the bases of the heights of
+such triangles we introduce an internal billiard and that that its orbit is indeed
+the Fnagano orbit for those triangles.
+
+\end{abstract}
+\section{Fangano Orbit length}
+
+We will now show that for acute angle triangles, the length of the fangano orbit
+($o$) satisfies:
+
+\begin{center}
+(1) $o = 2\arcsinh{\frac{1+2\cosh{a}\cosh{b}\cosh{c}-\cosh{a}^2-\cosh{b}^2-\cosh{c}^2}{\sinh{a}\sinh{b}\sinh{c}}}$
+\end{center}
+
+Where $a$, $b$ and $c$ are the lengths of $BC$, $AC$ and $AB$ respectfully and
+$\alpha$,$\beta$ and $\gamma$ the angles infront of them.
+
+
+Proof
+Define $A'$, $B'$ and $C'$ as the foots of the heights leaving $A$, $B$ and $C$
+respectfully. Define $P$ as the reflecion of $A'$ about $AC$ and $Q$ as the
+reflection of $A'$ about $AB$. Since the trigangle $A'B'C'$ is a billiard, it is
+easy to see that is perimiter is equal to $d\left(A' Q\right)$.
+
+
+We further notice that the abgle $PAQ$ is twice the angle $BAC$ and that
+the distance from $A$ to $P$ and to $Q$ is equal to thae distance $h$ between
+$A$ and $A'$
+
+Recall the cosine rule for triangles $PAQ$ and $ABC$:
+
+\begin{center}
+$\frac{\cosh{h}^2-\cosh{x}}{\sinh{h}^2}=\cos{2\alpha}=2\cos{\alpha}^2-1=$
+
+$2\left(\frac{\cosh{b}\cosh{c}-\cosh{a}}{\sinh{b}\sinh{c}}\right)^2 - 1$
+
+$\downarrow$
+
+$\cosh{x} = \cosh^2{h} + \sinh^2{h} - 2\sinh^2{h}\left(\frac{\cosh{b}\cosh{c}-\cosh{a}}{\sinh{b}\sinh{c}}\right)^2 =$
+
+$2 + 2\sinh^2{h} - 2\sinh^2{h}\left(\frac{\cosh{b}\cosh{c}-\cosh{a}}{\sinh{b}\sinh{c}}\right)^2 =$
+
+$2 + 2\sinh^2{h}\left(1 - \left(\frac{\cosh{b}\cosh{c}-\cosh{a}}{\sinh{b}\sinh{c}}\right)^2\right)  $
+
+\end{center}
+
+and, since $BAA'$ is a right angled triangle: 
+
+\begin{center}
+$\sinh{h}=\sinh{b}\sin{\beta}$
+
+$\downarrow$
+
+$\sinh^2{h}=\sinh^2{b}\sin^2{\beta}$
+
+
+\end{center}
+
+Substituting for $h$ :
+
+$\cosh{x} = 2 + 2\sinh^2{b}\sin^2{\beta}\left(1 - \left(\frac{\cosh{b}\cosh{c}-\cosh{a}}{\sinh{b}\sinh{c}}\right)^2\right)$
+
+
+
+
+
+
+
+
+Let us calculate that distance
+
+\begin{center}
+ \includegraphics[width=6cm]{./disk3.pdf}
+ % hyper00a.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=41 259 525 696
+
+ Figure 1
+\end{center}
+
+
+
+
+\end{document}
+
+
+

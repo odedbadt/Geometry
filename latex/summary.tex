@@ -1,0 +1,695 @@
+\documentclass[a4paper,10pt]{article}
+\title{}
+\author{}
+\usepackage{graphicx} 
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage{amsopn}
+\usepackage{asymptote}
+\parskip 7.2pt
+%% Missing trig. and hyp. operators
+\newcommand{\cosec}{\ensuremath{\mathrm{cosec}}}
+\newcommand{\arccosec}{\ensuremath{\mathrm{arccosec}}}
+\newcommand{\arcsec}{\ensuremath{\mathrm{arcsec}}}
+\newcommand{\arccot}{\ensuremath{\mathrm{arccot}}}
+\newcommand{\arcsinh}{\ensuremath{\mathrm{arcsinh}}}
+\newcommand{\arccosh}{\ensuremath{\mathrm{arccosh}}}
+\newcommand{\arctanh}{\ensuremath{\mathrm{arctanh}}}
+\newcommand{\arccoth}{\ensuremath{\mathrm{arccoth}}}
+\DeclareMathOperator{\argmax}{arg\,max}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+
+\begin{document}
+\maketitle
+\section{introduction}
+
+We consider closed inner orbits connecting edges of acute angled triangles in the
+hyperbolic plane and bound from above the ratio between the Fangano orbit -the
+shortest orbit connecting the edges of a triangle and the the triangle's
+circumference by $\frac{1}{2}$ - a ratio that is only achieved in the equilateral
+Euclidean triangle and is naturally the solution to the Euclidean version of the
+same problem [1].
+In fact we show that the shortest orbit connecting all three edges coincides with
+the shortest inner billiard and with the more constructive inner triangle 
+connecting the intersections of the altitudes and the edges.
+
+Since the domain of our problem is acute angled hyperbolic triangles we
+limit ourselves to the three dimensional closed* polytop:
+
+\begin{center}
+   $\mathcal{P} = \left\{\alpha,\beta,\gamma| \alpha + \beta + \gamma <= \pi, 0 <= \alpha,\beta,\gamma <= \frac{\pi}{2}\right\}$
+\end{center}
+
+We use section 1 to prove the three closed orbits indeed coincide for
+every triangle in our domain of interest, section 2 to express the length of
+the orbit and the circumference as a function of the angles, section 3
+to prove the ratio between the two is bounded by $\frac{1}{2}$ on the
+interior of the polytop and section 4 to show the same holds on the
+boundary.
+
+
+*We allow ourselves to consider the closed polytop even though formally
+$\alpha + \beta + \gamma < \pi$ for triangle on the hyperboloc plane and 
+equality is never achived. We do so since all of our expressions can be shown
+to be continuous with respect to the Euclidean case in the sense that their 
+values tend to the natural Euclidean version of the expression as the
+sum of the angles approaches $\pi$. We formulate and prove the above in
+appendix A.
+
+\begin{figure}
+\centering
+\begin{asy}
+size (3cm);
+import math;
+import hyperbolic_geometry;
+import fontsize;
+
+unitsize(3cm);
+hyperbolic_point A = hyperbolic_point(2.7, 0);
+hyperbolic_point B = hyperbolic_point(2.6, 100);
+hyperbolic_point C = hyperbolic_point(1.2, 250);
+
+draw(hyperbolic_segment(A,B));
+draw(hyperbolic_segment(B,C));
+draw(hyperbolic_segment(C,A));
+
+
+pair EUA = A.get_euclidean();
+pair EUB = B.get_euclidean();
+pair EUC = C.get_euclidean();
+
+pen p = fontsize(1);
+label("$A$",EUA,E,p);
+label("$\alpha$", (EUA.x - 0.2, EUA.y) , W, p);
+label("$a$", (EUC + EUB)/2, W, p);
+draw(arc(EUA, 0.3, 150, 210, true));
+
+label("$B$",(EUB.x, EUB.y + 0.1), NW, p);
+label("$\beta$", (EUB.x + 0.12, EUB.y - 0.35) , W, p);
+label("$b$", (EUC + EUA)/2, SW, p);
+draw(arc(EUB, 0.4, 260, 310, true));
+
+label("$C$",(EUC.x, EUC.y - 0.05), SW, p);
+label("$\gamma$", (EUC.x + 0.1, EUC.y + 0.15) , W, p);
+label("$c$", (EUB + EUA)/2, SE, p);
+draw(arc(EUC, 0.3, 30, 100, true));
+
+path frame = (-1,-1)--(-1,1)--(1, 1)--(1,-1)--cycle;
+clip(frame);
+\end{asy}
+\caption{Notation for vertices, adges and angles}
+\label{fig-notation}
+\end{figure}
+
+
+\section{Notation}
+
+All through the text, points in the hyperbolic plane are marked
+with Latin capitals. When using a letter, say $A$ in a specific model
+it may refer either to the point in the hyperbolc plane or to the point
+representing it in the model, which is used can be deduced by context.
+
+For two different points $A$ and $B$, $AB$ marks the segment connecting
+point $A$ and point $B$, or the model specific representation of the segment
+- which need not be an Euclidean segment.
+It is important to note that in Euclidean embeded models the Euclidean segment
+and hyperbolic segment do not necessarily coincide, in fact they usually do not,
+in those cases $AC$ refers to the hyperbolic segment and not the Euclidean segment.
+
+In some cases $AB$ may refer to the geodesic on which segment $AB$ is part of.
+In those cases it is specifically noted by refering to it as 'the geodesic $AB$'.
+
+Triangle vertices are marked with the capital Latins $A$, $B$ and $C$.
+Hyperbolic lengths of edges are marked $a$, $b$ and $c$, each refering to 
+the length of the edge opposite
+to the matching vertex, $a$ for example refers to $d\left(B, C\right)$ 
+Angles $\alpha$, $\beta$ and $\gamma$ refer to $\alpha = \angle BAC$, 
+$\alpha = \angle CBA$ and $\alpha = \angle ACB$ respectfully
+(see Figure \ref{fig-notation}).
+
+The terms Geodesics, Hyperbolic distances, segment lenghs angles and 
+triangles are all defined and explained in section \ref{sec-hyperbolicgeom}.
+
+
+\label{sec-hyperbolicgeom}
+\section{Hyperbolic Geometry}
+\subsection{Short introduction to Hyperbolic Geometry}
+\subsection{Hyperbolic Trigonometry}
+
+\label{cosine1}
+\begin{theorem}
+First Hyperbolic law of cosines
+\end{theorem}
+
+\label{cosine2}
+\begin{theorem}
+First Hyperbolic law of cosines
+\end{theorem}
+
+\label{hyperbolicheightexistance}
+\begin{definition}
+
+\end{definition}
+
+
+\label{hyperbolicheights2}
+\begin{theorem}
+The heights of an acute angled hyperbolic triangle are concurent
+\end{theorem}
+
+\label{hyperbolicheights2}
+\begin{theorem}
+In an acute angled triangle $ABC$, the height leaving $A$ crosses $BC$.
+\end{theorem}
+
+\subsection{The half plane model}
+
+Note: in the following text, half plane points are sometimes parameterized by the
+value of their x coordinate and their suqare norm, for example:
+\[
+P = \left(x, \sqrt{r - x^2}\right)\\
+\]
+In which cases we always implicitly assume $x$ is in $\mathbb{R}$ and $s$, the square norm, is in $\mathbb{R_+}$.
+
+\label{half-plane-concurrent}
+\begin{theorem}
+
+Let
+\[
+P_i = \left(x_i, \sqrt{s_i - x_i^2}\right), i\in\left\{0,1,2\right\}
+\]
+
+Be three distinct points on the same geodesic, then:
+
+\[
+  \left(x_2 - x_1\right)\left(s_3 - s_2\right) = \left(x_3 - x_2\right)\left(s_2 - s_1\right)
+\]
+\end{theorem}
+\begin{proof}
+...
+\end{proof}
+
+\label{half-plane-concurrent}
+\begin{theorem}
+
+Let
+\[
+P_i = \left(x_i, \sqrt{s_i - x_i^2}\right), i\in\left\{1,2,3,4\right\}
+\]
+
+
+
+Be four distinct points such that the geodesics $P_1P_2$ and $P_3P_4$ intersect the y-axis at
+points $(0,\sqrt{u})$ and $(0,\sqrt{v})$ (need not be unique, geodesics may coincide with the y-axis)
+then the two geodescis intersect each other and are perpendicular if and only if
+
+\[
+2\left(x_1 - x_2\right)\left(x_3 - x_4\right)\left(u + v\right) + \left(s_1 - s_2\right)\left(s_3 - s_4\right) = 0
+\]
+
+\end{theorem}
+
+\begin{proof}
+...
+\end{proof}
+
+Note: A condition for the fact that the two geodescis meet (not necesseraily being perpendiular) 
+is not as crisp and is not needed in the text and for that reason not detailed.
+
+\section{Closed orbits of acute angled hyperbolic triangles}
+
+We start by showing a Hyperbolic version of the three relatively trivial claims:
+
+(I) There is a unique inner billiard connecting all three edges.
+
+(II) The shortest inner billiard (Fangano orbit) is the above unique billiard.
+
+(III) The shortest closed inner orbit passing throgh all edges is a billiard
+
+And will continue on to show a less trivial fact:
+
+(IV) The orthic triangle (The triangle connecting the base points of the 
+three altitudes is an inner billiard.
+
+\begin{proof}
+
+Let $D,E,F$ be the unique points on $BC,CA,AB$ such that $AD$ is perpendicular to $BC$,
+$BE$ is perpendicular to $CA$ and $FC$ is perpendicular to $AB$
+(Exist and unique due to \ref{hyperbolicheights2}).
+
+$A$ to $BC$, $E$ be the 
+projection of point $B$ to $AC$, $F$ be the projection of point $C$ to $AB$.
+Let $Q$ be the reflection of $D$ with respect to $AB$. Let $J$ be
+
+Let $G$ be the intersection of the $y$ axis and $EQ$.
+
+Claim: $G$ coincides with $F$.
+
+Proof of this claim prooves $\angle EDA = \angle FDB$, and by symmetry
+prooves the mirror property of all vertices of the orbit.
+
+Proof of Claim:
+
+We fomulate the proof in the upper half plane model, relying of the well 
+known fact that the three altitudes of a triangle meet at one point. In an
+effort to simplify our calculations, we parameterize our points by their $x$ 
+coordinate and their squared distance from the origin:
+
+\begin{align*}
+A&=&\left(0,\sqrt{a}\right)
+B&=&\left(0,\sqrt{b}\right)\\
+C&=&\left(c, \sqrt{r - c^2}\right)
+D&=&\left(x, \sqrt{s - x^2}\right)\\
+Q&=&\left(-x, \sqrt{s - x^2}\right)
+E&=&\left(y, \sqrt{t - y^2}\right)\\
+F&=&\left(0,\sqrt{f}\right)
+G&=&\left(0,\sqrt{g}\right)
+\end{align*}
+
+
+\begin{figure}
+\centering
+\begin{asy}
+import math;
+import graph;
+size (6cm);
+
+pair hlinecenter(pair a, pair b)
+{
+  return (a*conj(a) - b*conj(b))/2/(xpart(a)-xpart(b));
+}
+
+
+import math;
+import graph;
+unitsize(0.5cm);
+pair O = (0,0);
+pair A = (0,3);
+pair B = (0,9);
+pair C = (6,2);
+
+pair cAC = hlinecenter(A,C);
+pair cBC = hlinecenter(B,C);
+draw(arc(cAC, length(A-cAC), degrees(A-cAC), degrees(C-cAC), false));
+draw(arc(cBC, length(B-cBC), degrees(B-cBC), degrees(C-cBC), false));
+draw(arc(O, length(C), degrees(C), 90, true));
+
+draw((-10,0)--(10,0));
+draw((0,0)--(0,10));
+\end{asy}
+\caption{Triangle modeled on the Poincare Upper half plane.}
+\label{fig:mirror}
+\end{figure}
+
+
+
+Let us show that $f = g$.
+
+\noindent
+We will rely on two half plane identities:
+
+Let us now proove $f=g$.
+We will start by expressing $x$ and $s$ by $a$,$b$,$c$ and $r$, we know that:
+
+\begin{align*}
+&b = \frac{cs - xr}{c - x} \\
+&\frac{s - a}{2x} \frac{r - b}{2c} = -\frac{a+b}{2}
+\end{align*}
+
+Solving for $x$, $s$:
+\begin{align*}
+x &= \frac{c\left(r - a\right)\left(b - a\right)}{\left(r - a\right)^2 + 2c^2\left(a + b\right)}\\
+s &= \frac{b\left(r - a\right)^2 + 2c^2\left(a + b\right)a}{\left(r - a\right)^2 + 2c^2\left(a + b\right)}
+\end{align*}
+
+And by symmetry:
+\begin{align*}
+y &= \frac{c\left(r - b\right)\left(a - b\right)}{\left(r - b\right)^2 + 2c^2\left(b + a\right)}\\
+t &= \frac{a\left(r - b\right)^2 + 2c^2\left(b + a\right)b}{\left(r - b\right)^2 + 2c^2\left(b + a\right)}
+\end{align*}
+
+Now Let us find $F$ as the intersection of $QE$ and the $y$ axis:
+
+\begin{align*}
+g &= \frac{ys - (-x)t}{y - (-x)} = \frac{ys + xt}{y + x)}\\
+   &= \frac{ \frac{c\left(r - b\right)\left(a - b\right)}{\left(r - b\right)^2 + 2c^2\left(b + a\right)} \frac{b\left(r - a\right)^2 + 2c^2\left(a + b\right)a}{\left(r - a\right)^2 + 2c^2\left(a + b\right)} + \frac{c\left(r - a\right)\left(b - a\right)}{\left(r - a\right)^2 + 2c^2\left(a + b\right)} \frac{a\left(r - b\right)^2 + 2c^2\left(b + a\right)b}{\left(r - b\right)^2 + 2c^2\left(b + a\right)} }{ \frac{c\left(r - b\right)\left(a - b\right)}{\left(r - b\right)^2 + 2c^2\left(b + a\right)} + \frac{c\left(r - a\right)\left(b - a\right)}{\left(r - a\right)^2 + 2c^2\left(a + b\right)} }\\
+  &= \frac{c\left(r - b\right)\left(a - b\right) \left(b\left(r - a\right)^2 + 2c^2\left(a + b\right)a\right) + c\left(r - a\right)\left(b - a\right) \left(a\left(r - b\right)^2 + 2c^2\left(b + a\right)b\right) }{c\left(r - b\right)\left(a - b\right)\left(\left(r - a\right)^2 + 2c^2\left(a + b\right)\right) + c\left(r - a\right)\left(b - a\right)\left(\left(r - b\right)^2 + 2c^2\left(b + a\right)\right) }\\
+  &= \frac{\left(r - b\right) \left(b\left(r - a\right)^2 + 2c^2\left(a + b\right)a\right) - \left(r - a\right) \left(a\left(r - b\right)^2 + 2c^2\left(b + a\right)b\right) }{\left(r - b\right)\left(\left(r - a\right)^2 + 2c^2\left(a + b\right)\right) - \left(r - a\right)\left(\left(r - b\right)^2 + 2c^2\left(b + a\right)\right) }\\
+  &= \frac{2c^2\left(a + b\right)\left(a\left(r - b\right) - b\left(r - a\right)\right) + \left(r - a\right)\left(r - b\right)\left( b\left(r - a\right) - a\left(r - b\right)\right)}{2c^2\left(a + b\right)\left(r - b - r + a\right) + \left(r - a\right)\left(r - b\right)\left(\left(r - a\right) - \left(r - b\right)\right)}\\
+  &= \frac{2c^2\left(a + b\right)r\left(a - b\right) + \left(r - a\right)\left(r - b\right)r\left(b - a\right)}{2c^2\left(a + b\right)\left(a - b\right) + \left(r - a\right)\left(r - b\right)\left(b - a\right)}\\
+&= r
+\end {align*}
+\end{proof}
+
+\section{Equilateral Triangles}
+
+The family of hyperbolic equilateral triangles is a single parameter 
+family. The parameter can be the edge length or the angle size, we will
+choose to parameterize the family by the angle, $\alpha$, that can be
+any where in the half open interval $\left[0, \frac{\pi}{3}\right)$.
+
+Claim: The ratio between the Fangano orbit length and the perimiter
+of the triangle is monotone with respect to $\alpha$.
+
+Corollary: The ratio between the Fangano orbit length and the perimiter
+is smaller than $2$.
+
+We will show the two following identities:
+\begin{align}
+\cosh{\frac{f}{3}}&=\cos{\alpha}+\frac{1}{2}\label{EquilateralFanganoOrbitLength}\\
+\cosh{\frac{p}{3}}&=\frac{\cos{\alpha}}{1-\cos{\alpha}}\label{EquilateralPerimiter}\\
+\end{align}
+Where $f$ is the Fangano orbit length and $p$ is the perimiter.
+
+Proof:
+
+\begin{figure}
+\centering
+\begin{asy}
+size (3cm);
+import math;
+import hyperbolic_geometry;
+unitsize(3cm);
+hyperbolic_point O = hyperbolic_point(0, 0);
+hyperbolic_point A = hyperbolic_point(2.7, 0);
+hyperbolic_point B = hyperbolic_point(2.7, 120);
+hyperbolic_point C = hyperbolic_point(2.7, 240);
+
+
+hyperbolic_point D = basepoint(hyperbolic_line(B,C), A);
+hyperbolic_point hE = basepoint(hyperbolic_line(C,A), B);
+hyperbolic_point F = basepoint(hyperbolic_line(A,B), C);
+hyperbolic_point J = intersection(hyperbolic_line(hE,F), hyperbolic_line(A,D));
+
+
+draw(unitcircle);
+draw(hyperbolic_segment(A,D));
+draw(hyperbolic_segment(A,B));
+draw(hyperbolic_segment(A,C));
+draw(hyperbolic_segment(B,C));
+draw(hyperbolic_segment(F,hE));
+draw(hyperbolic_segment(D,hE));
+draw(hyperbolic_segment(F,D));
+pen p = fontsize(1);
+label("$J$",J.get_euclidean(),NE,p);
+label("$A$",A.get_euclidean(),E,p);
+label("$B$",B.get_euclidean(),NW,p);
+label("$C$",C.get_euclidean(),SW,p);
+label("$D$",D.get_euclidean(),W,p);
+label("$E$",hE.get_euclidean(),SE,p);
+label("$F$",F.get_euclidean(),NE,p);
+path frame = (-1,-1)--(-1,1)--(1, 1)--(1,-1)--cycle;
+clip(frame);
+\end{asy}
+\caption{Equilaterlal Triangle modeled on the Poincare Disc.}
+\label{fig:equi-orbit}
+\end{figure}
+
+
+\begin{align*}
+\sinh{\frac{p}{6}}&=\sinh{BD}=\sinh{AB}\sin{\frac{\alpha}{2}}=\sinh{\frac{p}{3}}\sin{\frac{\alpha}{2}}\\
+&\Downarrow\\
+\sinh{\frac{p}{6}} &= \sinh{2\frac{p}{6}}\sin{\frac{\alpha}{2}}\\
+&\Downarrow\\
+\sinh{\frac{p}{6}} &= 2\sinh{\frac{p}{6}}\cosh{\frac{p}{6}}\sin{\frac{\alpha}{2}}\\
+&\Downarrow\\
+\cosh{\frac{p}{6}} &= \frac{1}{2\sin{\frac{\alpha}{2}}}\\
+&\Downarrow\\
+\cosh{\frac{p}{3}} &= \frac{2}{4\sin^2{\frac{\alpha}{2}}} - 1 = \frac{1}{2\sin^2{\frac{\alpha}{2}}} - 1 \\
+&= \frac{1}{1-\cos{\alpha}} - 1 = \frac{\cos{\alpha}}{1-\cos{\alpha}} \\
+\end{align*}
+Which proves \eqref{EquilateralPerimiter}
+
+
+\begin{align*}
+\cosh{\frac{f}{3}}&=\cosh{2\frac{f}{6}}\\
+&=2\sinh^2{\frac{f}{6}}+1=2\sinh^2{FJ}+1\\
+&=2\sinh^2{FA}\sin^2{\frac{\alpha}{2}}+1 = \left(\cosh{2FA}-1\right)\frac{1-\cos{\alpha}}{2}+1\\
+&=\left(\cosh{\frac{p}{3}}-1\right)\frac{1-\cos{\alpha}}{2}+1=\left(\frac{\cos{\alpha}}{1-\cos{\alpha}}-1\right)\frac{1-\cos{\alpha}}{2}+1\\
+&=\frac{1}{2}\left(\cos{\alpha}-1+\cos{\alpha}\right)+1=\cos{\alpha}+\frac{1}{2}
+\end{align*}
+Which proves \eqref{EquilateralFanganoOrbitLength}.
+
+For $\alpha=0$, the perimiter is infinite while the orbit is finite, so $\frac{f}{a}$ is zero.
+Inorder to show that the ratio $\frac{f}{a}$ is monotone with respect to $\alpha$ it
+is enough to show that:
+
+\[
+\frac{f_\alpha}{a_\alpha} > \frac{f}{a}
+\]
+
+Where $f_\alpha$ and $a_\alpha$ are the deriviatives of $f$ and $a$ with respect to $\alpha$.
+
+Let $t=\cos{\alpha}$ and $s=\sin{\alpha}$:
+
+\begin{align*}
+\frac{f_\alpha}{a_\alpha} &= \frac{  \frac{s}{\sqrt{  \left(t+\frac{1}{2}\right)^2   - 1} }}
+                                {  \frac{s}{\sqrt{  \left(  \frac{t}{1-t}  \right)^2   - 1} }}
+= \sqrt{\frac{\left(  \frac{t}{1-t}  \right)^2   - 1}{  \left(t+\frac{1}{2}\right)^2   - 1 }}
+= \sqrt{\frac{\left(  \frac{1}{1-t}  \right)\left(  \frac{2t-1}{1-t}  \right)}
+              {  \left(t-\frac{1}{2}\right)\left(t+\frac{3}{2}\right) }}\\
+&= \sqrt{\frac{2\left( t-\frac{1}{2}\right)}
+              {  \left(1 - t\right)^2\left(t-\frac{1}{2}\right)\left(t+\frac{3}{2}\right) }}
+= \sqrt{\frac{2}
+              {  \left(1 - t\right)^2\left(t+\frac{3}{2}\right) }}\\
+\end{align*}
+
+
+\section{The general case - Expressing lengths as functions of angles}
+
+In this section we will show the two following identities:
+
+\begin{align}
+&\sinh{\frac{f}{2}}=\Phi \label{FanganoOrbitLength}\\
+&\sinh{\frac{s}{2}}=\frac{\Phi}{4\sin{\frac{\alpha}{2}}\sin{\frac{\beta}{2}}\sin{\frac{\gamma}{2}}}\label{Perimiter}\\
+&\tanh{r}=\frac{\Phi}{4\cos{\frac{\alpha}{2}}\cos{\frac{\beta}{2}}\cos{\frac{\gamma}{2}}}\label{Inscribed}
+\end{align}
+
+Where $f$ is the length of the Fangano orbit, $s$ the perimiter, $r$ 
+the radius of the inscribed (hyperbolic) circle and:
+\[
+\Phi^2=2\cos{\alpha}\cos{\beta}\cos{\gamma}+\cos^2{\alpha}+\cos^2{\beta}+\cos^2{\gamma}-1
+\]
+\subsection{Proof}
+
+We consider the acute angled hyperbolic triangle $\triangle ABC$. Let
+ $a$, $b$ and $c$ be the lengths of $BC$, $CA$, $AB$ respectfully and
+$\alpha$, $\beta$ and $\gamma$ the angles $\angle BAC$, $\angle ABC$,
+$\angle BCA$.  Let $D$ be the projection of point $A$ to $BC$, and $d$ 
+be the length of $AD$. Let $P$ be the reflection of $D$ with respect
+to $AC$ and $Q$ the reflection of $D$ with respect to $AB$.
+(The construction is demonstrated in Figure \ref{fig:orbit}).
+
+\begin{figure}
+\centering
+\begin{asy}
+size (6cm);
+import math;
+import hyperbolic_geometry;
+unitsize(3cm);
+hyperbolic_point A = hyperbolic_point(0,0);
+hyperbolic_point B = hyperbolic_point(2.7, 63);
+hyperbolic_point C = hyperbolic_point(1.7, 13);
+hyperbolic_point D = basepoint(hyperbolic_line(B,C), A);
+hyperbolic_point E = basepoint(hyperbolic_line(C,A), B);
+hyperbolic_point F = basepoint(hyperbolic_line(A,B), C);
+hyperbolic_point P = mirror(hyperbolic_line(A,B), D);
+hyperbolic_point Q = mirror(hyperbolic_line(A,C), D);
+draw(unitcircle);
+draw(hyperbolic_segment(A,B));
+draw(hyperbolic_segment(A,C));
+draw(hyperbolic_segment(B,C));
+draw(hyperbolic_segment(A,D));
+draw(hyperbolic_segment(P,Q));
+draw(hyperbolic_segment(D,E));
+draw(hyperbolic_segment(F,D));
+draw(hyperbolic_segment(A,Q));
+draw(hyperbolic_segment(A,P));
+pen p = fontsize(1);
+label("$A$",A.get_euclidean(),SW,p);
+label("$B$",B.get_euclidean(),NE,p);
+label("$C$",C.get_euclidean(),NE,p);
+label("$D$",D.get_euclidean(),NE,p);
+label("$E$",E.get_euclidean(),SW,p);
+label("$F$",F.get_euclidean(),W,p);
+label("$P$",P.get_euclidean(),NE,p);
+label("$Q$",Q.get_euclidean(),NE,p);
+path frame = (-0.3,-0.3)--(-0.3,1.1)--(1.1, 1.1)--(1.1,-0.3)--cycle;
+clip(frame);
+\end{asy}
+\caption{Triangle modeled on the Poincare Disc.}
+\label{fig:orbit}
+\end{figure}
+
+First, since $DEF$ is an inner billiard, and since $P$ and $Q$ are
+both reflections of $D$, it easy to see that $P$, $F$, $E$ and $Q$ are
+on a common geodesic and that $DF = PF$ and $ED=EQ$. So:
+\begin{align*}
+2f &= \overline{DF} + \overline{FE} + \overline{ED}\\
+     &= \overline{PF} + \overline{FE} + \overline{EQ}\\
+     &= \overline{PQ}
+\end{align*}
+
+Second, from the same exact properties, $\angle PAF = \angle DAF$ and
+$\angle QAE = \angle DAE$, and thus:
+
+\begin{align*}
+\angle PAQ &= \angle PAD + \angle DAQ = 2\angle BAD + 2\angle DAC \\
+           &= 2\left(\angle BAD + \angle DAC \right) = 2\angle BAC \\
+           &= 2\alpha
+\end{align*}
+
+Using the hyperbolic law of cosines for $\triangle PAQ$ and right
+angle identity for $\triangle ADC$ we get the following identities
+(respectfully):
+
+\begin{align}
+\cosh{2f} &= \cosh^2{d} - \sinh^2{d}\cos{2\alpha} \label{CosineLawPAQ} \\
+\sinh{d} &= \sinh{c}\sin{\beta} \label{tanADC}
+\end{align}
+
+Develope \eqref{CosineLawPAQ}:
+
+\begin{align*}
+\cosh{2f} &=1+ \sinh^2{d} - \sinh^2{d}\left(\cos^2{\alpha} - \sin^2{\alpha}\right) \\
+&=1+ \sinh^2{d}\left(1 - \cos^2{\alpha} + \sin^2{\alpha}\right) \\
+&=1+2\sinh^2{d}\sin^2{\alpha} \\
+\end{align*}
+
+Substituting for $\cosh{2f}$ and $\sinh^2{d}$ (using \eqref{tanADC}), we get:
+
+\begin{align*}
+1 + 2\sinh^2{f} &=1+2\sinh^2{c}\sin^2{\beta}\sin^2{\alpha} \\
+&=1+2\left(\frac{\cos{\alpha}\cos{\beta} + \cos{\gamma}}{\sin{\alpha}\sin{\beta}}^2 - 1\right)\sin^2{\beta}\sin^2{\alpha} \\
+&=1+2\left(\cos{\alpha}\cos{\beta}\cos{\gamma} + \cos^2{\gamma} + \cos^2{\alpha}\cos^2{\beta} - \sin^2{\beta}\sin^2{\alpha} \right) \\
+&=1+2\left(\cos{\alpha}\cos{\beta}\cos{\gamma} + \cos^2{\gamma} + \cos^2{\alpha}\cos^2{\beta} -
+\left(1-\cos^2{\alpha}\right)\left(1-\cos^2{\beta}\right)\right)\\
+&=1+2\left(2\cos{\alpha}\cos{\beta}\cos{\gamma} + \cos^2{\gamma} + \cos^2{\beta} + \cos^2{\alpha} + \cos^2{\beta} - 1\right) \\
+&=1+2\Phi^2 \\
+\end{align*}
+
+Which proves \eqref{FanganoOrbitLength}:
+\[
+\sinh{f}=\Phi
+\]
+
+...
+
+\section{Bounding ratios between invariants on the interior}
+
+In this section we will show that ${\frac{f}{s}}$ has no critical points
+on the interior of $\mathbf{P}$. We will do so by diving $\mathbf{P}$ to
+level sets of the perimiter function $s$, and showing that for a given value of 
+$s$, the the above ratio achieves its maximum on the boundary of $\mathbf{P}$ 
+or on the set $\alpha=\beta=\gamma$. We will then show that on that set 
+the ratio is monotone with resppect to, say, $\alpha$.
+
+\subsection{Proof}
+
+Fixing $s$, by \eqref{Perimiter}, means fixing
+\[
+\frac{\Phi}{4\cos{\frac{\alpha}{2}}\cos{\frac{\beta}{2}}\cos{\frac{\gamma}{2}}}
+\]
+Thus fixing its square: 
+\[
+\frac{\Phi^2}{16\cos^2{\frac{\alpha}{2}}\cos^2{\frac{\beta}{2}}\cos^2{\frac{\gamma}{2}}} = \\
+\frac{\Phi^2}{2\left(1 - \cos{\alpha}\right)\left(1 - \cos{\beta}\right)\left(1 - \cos{\gamma}\right)}
+\]
+We shall mark the above ratio by $\rho$.
+
+By \eqref{FanganoOrbitLength}, ${\frac{f}{s}}$ achieves its maximum (given a fixed s),
+when ${\Phi}$ achives its maximum and thus when ${\Phi^2}$ achives its maximum. Our 
+maximizing problem is thus reduced to maximizing $\Phi^2$, given a fixed value for
+$\frac{\Phi^2}{\rho}$. Using Lagrange multipliers:
+
+\begin{align*}
+\bigtriangleup \Phi^2 &= \lambda \bigtriangleup\frac{\Phi^2}{\rho}\\
+&\Downarrow\\
+\frac{1}{\lambda}\bigtriangleup\left(\Phi^2\right) &= \frac{\bigtriangleup\left(\Phi^2\right)\rho - \bigtriangleup\left(\rho\right)\Phi^2}{\rho^2}\\
+&\Downarrow\\
+\left(\frac{1}{\lambda}-\frac{1}{\rho}\right)\bigtriangleup\left(\Phi^2\right) &= -\frac{\Phi^2}{\rho^2}\bigtriangleup\left(\rho\right)\\
+\end{align*}
+
+In other words, $\bigtriangleup\left(\Phi^2\right)$ and $\bigtriangleup\left(\rho\right)$ are 
+linearly dependant, meaning the ratios between the directional deriviatives are respectfully equal:
+\begin{align*}
+  \frac{\Phi^2_\alpha}{\rho_\alpha} = &\frac{\Phi^2_\beta}{\rho_\beta} = \frac{\Phi^2_\gamma}{\rho_\gamma}\\
+  &\Downarrow\\
+  \frac{-2\left(\cos{\beta}\cos{\gamma} + \cos{\alpha}\right)\sin{\alpha}}{2\left(1 - \cos{\beta}\right)\left(1 - \cos{\gamma}\right)\sin{\alpha}} = 
+  &\frac{-2\left(\cos{\gamma}\cos{\alpha} + \cos{\beta}\right)\sin{\beta}}{2\left(1 - \cos{\gamma}\right)\left(1 - \cos{\alpha}\right)\sin{\beta}} = 
+  \frac{-2\left(\cos{\alpha}\cos{\beta} + \cos{\gamma}\right)\sin{\gamma}}{2\left(1 - \cos{\alpha}\right)\left(1 - \cos{\beta}\right)\sin{\gamma}}\\
+\end{align*}
+
+And Specifically:
+\begin{align*}
+\frac{\left(\cos{\beta}\cos{\gamma} + \cos{\alpha}\right)}{\left(1 - \cos{\beta}\right)\left(1 - \cos{\gamma}\right)} &=
+\frac{\left(\cos{\gamma}\cos{\alpha} + \cos{\beta}\right)}{\left(1 - \cos{\gamma}\right)\left(1 - \cos{\alpha}\right)}\\
+  &\Downarrow\\
+\frac{\left(\cos{\beta}\cos{\gamma} + \cos{\alpha}\right)}{\left(1 - \cos{\beta}\right)} &=
+\frac{\left(\cos{\gamma}\cos{\alpha} + \cos{\beta}\right)}{\left(1 - \cos{\alpha}\right)}\\
+  &\Downarrow\\
+\cos{\beta}\cos{\gamma} + \cos{\alpha} - \cos{\alpha}\cos{\beta}\cos{\gamma} - \cos^2{\alpha} &=
+\cos{\alpha}\cos{\gamma} + \cos{\beta} - \cos{\alpha}\cos{\beta}\cos{\gamma} - \cos^2{\beta}\\
+  &\Downarrow\\
+\cos{\beta}\cos{\gamma} + \cos{\alpha} - \cos^2{\alpha} &=
+\cos{\alpha}\cos{\gamma} + \cos{\beta} - \cos^2{\beta}\\
+  &\Downarrow\\
+\cos{\gamma}\left(\cos{\beta}-\cos{\alpha}\right) &- \left(\cos^2{\alpha}-\cos^2{\beta}\right) + \cos{\beta} - \cos{\alpha} = 0\\
+  &\Downarrow\\
+\left(\cos{\beta} - \cos{\alpha}\right)\left(\cos{\gamma} - \cos{\alpha} - \cos{\beta} + 1\right) &=0
+\end{align*}
+
+Similraly we derive two more equations and arrive with:
+\begin{align*}
+\left(\cos{\beta} - \cos{\alpha}\right)\left(\cos{\gamma} - \cos{\alpha} - \cos{\beta} + 1\right) &=0\\
+\left(\cos{\gamma} - \cos{\beta}\right)\left(\cos{\alpha} - \cos{\beta} - \cos{\gamma} + 1\right) &=0\\
+\left(\cos{\alpha} - \cos{\gamma}\right)\left(\cos{\beta} - \cos{\gamma} - \cos{\alpha} + 1\right) &=0
+\end{align*}
+
+Which has only one internal solution $\alpha=\beta=\gamma$.
+
+Explanation:
+
+If, say, $\alpha=\beta$ Then by the second equation (and the fact the we looking for internal solutions), $\gamma$ must
+be equal to $\beta$, so a solution other than $\alpha=\beta=\gamma$ must include three distinct angles, meaning:
+\begin{align*}
+\left(\cos{\gamma} - \cos{\alpha} - \cos{\beta} + 1\right) &=0\\
+\left(\cos{\alpha} - \cos{\beta} - \cos{\gamma} + 1\right) &=0\\
+\left(\cos{\beta} - \cos{\gamma} - \cos{\alpha} + 1\right) &=0
+\end{align*}
+
+Of which the only solution is $\cos{\alpha}=\cos{\beta}=\cos{\gamma}=1$.
+We conclude that any internal critical point must lay on the line $\alpha=\beta=\gamma$.
+
+Let us now look at the single variable function:
+
+
+\section{Bounding the ratio on the boundary}
+
+Up to symmetry, the boundary is assembled by sets of one of the types: 
+$\left\{\alpha=0\right\}$, $\left\{\alpha=\frac{\pi}{2}\right\}$, and
+$\left\{\alpha+\beta+\gamma=0\right\}$. The first is trivial since on it the
+circumference is infinite and the orbit is finite (since it connects
+three internal points), the last reduces to the known Euclidean case,
+which leaves us with the case that one of the angles is a right
+angle (since we covered the case where one angle is zero we can assume
+that only one angle is a right angle).
+
+** TODO: complete.
+
+\begin{thebibliography}{9}
+
+\bibitem{beardon}
+  Alan F. Beardon
+  The Geometry
+  of Discrete Groups
+  With 93 Illustrations
+
+\end{thebibliography}
+
+\end{document}
+
+
+
