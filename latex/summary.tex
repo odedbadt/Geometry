@@ -68,7 +68,7 @@ import fontsize;
 
 unitsize(3cm);
 hyperbolic_point A = hyperbolic_point(2.7, 0);
-hyperbolic_point B = hyperbolic_point(2.6, 100);
+hyperbolic_point B = hyperbolic_point(2.1, 100);
 hyperbolic_point C = hyperbolic_point(1.2, 250);
 
 draw(hyperbolic_segment(A,B));
@@ -80,23 +80,23 @@ pair EUA = A.get_euclidean();
 pair EUB = B.get_euclidean();
 pair EUC = C.get_euclidean();
 
-pen p = fontsize(1);
+pen p = fontsize(7.2);
 label("$A$",EUA,E,p);
-label("$\alpha$", (EUA.x - 0.2, EUA.y) , W, p);
+label("$\alpha$", (EUA.x - 0.22, EUA.y) , W, p);
 label("$a$", (EUC + EUB)/2, W, p);
-draw(arc(EUA, 0.3, 150, 210, true));
+draw(arc(EUA, 0.35, 150, 210, true));
 
 label("$B$",(EUB.x, EUB.y + 0.1), NW, p);
-label("$\beta$", (EUB.x + 0.12, EUB.y - 0.35) , W, p);
+label("$\beta$", (EUB.x + 0.15, EUB.y - 0.32) , W, p);
 label("$b$", (EUC + EUA)/2, SW, p);
 draw(arc(EUB, 0.4, 260, 310, true));
 
 label("$C$",(EUC.x, EUC.y - 0.05), SW, p);
-label("$\gamma$", (EUC.x + 0.1, EUC.y + 0.15) , W, p);
+label("$\gamma$", (EUC.x + 0.15, EUC.y + 0.17) , W, p);
 label("$c$", (EUB + EUA)/2, SE, p);
 draw(arc(EUC, 0.3, 30, 100, true));
 
-path frame = (-1,-1)--(-1,1)--(1, 1)--(1,-1)--cycle;
+path frame = (-1,-1)--(-1,2)--(1, 2)--(1,-1)--cycle;
 clip(frame);
 \end{asy}
 \caption{Notation for vertices, adges and angles}
@@ -133,8 +133,8 @@ The terms Geodesics, Hyperbolic distances, segment lenghs angles and
 triangles are all defined and explained in section \ref{sec-hyperbolicgeom}.
 
 
-\label{sec-hyperbolicgeom}
 \section{Hyperbolic Geometry}
+\label{sec-hyperbolicgeom}
 \subsection{Short introduction to Hyperbolic Geometry}
 \subsection{Hyperbolic Trigonometry}
 
@@ -169,7 +169,7 @@ In an acute angled triangle $ABC$, the height leaving $A$ crosses $BC$.
 Note: in the following text, half plane points are sometimes parameterized by the
 value of their x coordinate and their suqare norm, for example:
 \[
-P = \left(x, \sqrt{r - x^2}\right)\\
+P = \left(x, \sqrt{s - x^2}\right)\\
 \]
 In which cases we always implicitly assume $x$ is in $\mathbb{R}$ and $s$, the square norm, is in $\mathbb{R_+}$.
 
@@ -288,7 +288,7 @@ unitsize(0.5cm);
 pair O = (0,0);
 pair A = (0,3);
 pair B = (0,9);
-pair C = (6,2);
+pair C = (4,5);
 
 pair cAC = hlinecenter(A,C);
 pair cBC = hlinecenter(B,C);
@@ -296,7 +296,7 @@ draw(arc(cAC, length(A-cAC), degrees(A-cAC), degrees(C-cAC), false));
 draw(arc(cBC, length(B-cBC), degrees(B-cBC), degrees(C-cBC), false));
 draw(arc(O, length(C), degrees(C), 90, true));
 
-draw((-10,0)--(10,0));
+draw((-1,0)--(5,0));
 draw((0,0)--(0,10));
 \end{asy}
 \caption{Triangle modeled on the Poincare Upper half plane.}
