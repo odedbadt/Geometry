@@ -49,7 +49,6 @@ cad.draw = function(command) {
     var state = 0;
 	try {
 		commandArray = (Function.apply(null, [keys(cad.helpers), command])).apply(null, values(cad.helpers));
-	  	console.log(commandArray);
 		state = 1;
 		canvas.execute(canvas.context(), commandArray)
 	    document.getElementById('error').style['backgroundColor'] = 'white';	
@@ -78,8 +77,8 @@ cad.helpers = {
 
 
 
-cad.helpers.clear = function(w, h) {
-    return [['clearRect', 0, 0, w, h]].concat(copyArgs(arguments, 2));
+cad.helpers.clear = function(x, y, w, h) {
+    return [['clearRect', x, y, w, h]].concat(copyArgs(arguments, 4));
 }
 cad.helpers.line = function(segments) {
   var cmds = [];

@@ -1,0 +1,25 @@
+
+pnorm(p,v) := (abs(v[1])**p + abs(v[2])**p) ** (1/p)$
+
+pnormalize(p,v) := v / pnorm(p,v)$
+
+pnormal(p,v) := [abs(v[1])**(p-1)*signum(v[1]), abs(v[1])**(p-1)*signum(v[2])]$
+
+
+P:4$
+Q:1/(1-1/P)$
+
+a: [-1/2, 1]$
+b: [1, 1]$
+
+u:pnormalize(P,a)$
+v:pnormalize(P,b)$
+
+d1:pnormalize(P, u-v)$
+d2:pnormalize(P, u+v)$
+
+c:pnormal(P, d1)$
+d:pnormal(P, d2)$
+
+z:pnormalize(Q, c-d),numer;
+w:pnormalize(Q, c+d),numer;
