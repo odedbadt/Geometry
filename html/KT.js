@@ -20,8 +20,8 @@ var convex = function(p){
      return pnormalize(p, toCartesian(i/N * PI * 2, 1));
   });
 };
-var a = [-0.5, 1];
-var b = [1, 1];
+var a = toCartesian(1 * PI, 1);
+var b = toCartesian(0.25 * PI + 0.001, 1);
 
 var P = 4;
 var Q = 1/(1-1/P);
