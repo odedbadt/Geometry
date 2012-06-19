@@ -9,6 +9,7 @@ uniform vec2 resolution;
 float norm(float x, float y, float p) {
   return pow(pow(y,p) + pow(x,p), 1.0/p);
 }
+
 float norm(vec2 point, float p) {
   return norm(point.x, point.y, p);
 }

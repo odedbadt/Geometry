@@ -6,25 +6,24 @@ uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
 
-float norm(float x, float y, float p) {
-  return pow(pow(y,p) + pow(x,p), 1.0/p);
+float norm(float p,  float x, float y) {
+  return pow(pow(abs(y),p) + pow(abs(x),p), 1.0/p);
 }
-float norm(vec2 point, float p) {
-  return norm(point.x, point.y, p);
+float norm(float p, vec2 point) {
+  return norm(p, point.x, point.y);
 }
 
-vec2 normalize(vec2 point, float p) {
-  return point / norm(point.x, point.y, p);
+vec2 normalize(float p, vec2 point) {
+  return point / norm(p, point.x, point.y);
 }
-vec2 normal(vec2 point, float p) {
-  return vec2(pow(abs(point.x), p - 1.0), pow(abs(point.y), p - 1.0)) * sign(point);
+vec2 normal(float p, vec2 point) {
+  vec2 npoint = normalize(p, point);
+  return vec2(pow(abs(npoint.x), p - 1.0), pow(abs(npoint.y), p - 1.0)) * sign(point);
 }
 float cos2(vec2 u, vec2 v) {
-  return (u.x*v.x + u.y*v.y) / norm(u,2.0) / norm(v,2.0);
+  return (u.x * v.x + u.y * v.y) / (norm(2.0, u) * norm(2.0, v));
 }
 void main( void ) {
-
-
 
   vec2 pos = ( gl_FragCoord.xy / vec2(resolution.y, resolution.y) * 4.0 + vec2(0.5,0));
   vec2 npos = ( (gl_FragCoord.xy + (1.0,1.0))/ vec2(resolution.y, resolution.y) * 4.0 + vec2(0.5,0));
@@ -38,52 +37,41 @@ void main( void ) {
   float y = mod(pos.y, 2.0) - 1.0;
   float ny = mod(npos.y, 2.0)- 1.0;
  
-  float P = max(1.0, 10.0*mouse.x+1.1);
+  float P = 4.0;
 
   P = min(max(P, 1.01), 100.0);
   float Q = 1.0 / (1.0 - 1.0/P);
   float PI = 3.141593;
 
-  vec3 color;
+  vec3 color = vec3(0.0,0.0,0.0);
 
-
-  if (I == 0.0) {
-    float v = (y + 1.0) * 2.0;
-    color = vec3(v, v, v);
-  } else if (I == 3.0) {
-    float v = norm(vec2(x, y), P);
-    color = cos(vec3(v,v*4.0,v*40.0) - 2.0);
-  } else {
+  if (I >= 1.0 && I <= 2.0) {
     float alpha = x * PI;
-    float beta = y * PI;
+    float beta = (x + y) * PI;
+    float gamma = (x - y) * PI;
 
-    vec2 a = normalize(vec2(cos(alpha),sin(alpha)), P);
-    vec2 b = normalize(vec2(cos(beta),sin(beta)), P);
+    vec2 a = normalize(P, vec2(cos(alpha), sin(alpha)));
+    vec2 b = normalize(P, vec2(cos(beta), sin(beta)));
+    vec2 c = normalize(P, vec2(cos(gamma), sin(gamma)));
 
-    vec2 d1 = a - b;
-    vec2 d2 = a + b;
+    vec2 ab = -normal(P, b - a);
+    vec2 bc = -normal(P, c - b);
+    vec2 ca = -normal(P, a - c);
 
-   
-    vec2 s = normal(normalize(d1, P), P);
-    vec2 t = normal(normalize(d2, P), P);
-
-    float f = pow(cos2(s - t, normal(b, P)), 400.0);
-    float k = pow(cos2(s + t, normal(a, P)), 400.0);
-
+    float aa = pow(0.5 + 0.5 * cos2(a, normal(Q, ab - ca)), 40.0);
+    float bb = pow(0.5 + 0.5 * cos2(a, normal(Q, bc - ab)), 1.0);
+    float cc = pow(0.5 + 0.5 * cos2(a, normal(Q, ca - bc)), 1.0);
 
     if (I == 1.0 && J == 1.0) {
-      color = vec3(0.0,0.0, 0.0);
+      color = vec3(aa,aa,aa);
     } else if (I == 1.0) {
-      color = vec3(f,f,f);
+      color = vec3(bb,bb,bb);
     } else if (J == 1.0) {
-      color = vec3(k,k,k);
+      color = vec3(cc,cc,cc);
     } else  {
-      color = vec3(f,k,0);
-    }
-    
+      color = vec3(aa,bb,cc);
+    }    
   }
-
   vec4 c1 = vec4( color, 1.0 );
   gl_FragColor = c1;
-
 }
